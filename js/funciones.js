@@ -16,8 +16,11 @@ function asignaFuncion () {
     $('#AutobusesPEditar').on('change',getNumerosParadas);
     $('#indicep').on('change',buscaParada);
     $('#parada-actualizar').on('click', actualizarParada);
-
+    $('#AutobusesPEliminar').on('change',getNumerosParadasEliminar);
+    $('#parada-eliminar').on('click', eliminarParada);
 }
+
+
 
 function actualizar () {
     var id= $('#usuarios').val();
@@ -290,6 +293,22 @@ function eliminarDependencia () {
         });
 }
 
+function eliminarParada() {
+    var id= $('#AutobusesPEliminar').val();
+    var indice= $('#indicePEliminar').val();
+    console.log(indice);
+    console.log(id);
+    $.ajax({
+            data:{id: id, indice:indice},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/paradas/eliminarParada',
+            success: function(json){
+                console.log(json);
+            }
+        });
+}
+
 function guarda(){
     var nombre= $('#nombre').val();
     var correo= $('#correo').val();
@@ -323,6 +342,29 @@ function getNumerosParadas (e) {
                 
                 for(var i=0;i<json;i++){
                     $("<option value='"+(i+1)+"'>"+(i+1)+"</option>").appendTo("#indicep");
+                    }
+
+
+            }
+        });
+
+}
+
+function getNumerosParadasEliminar (e) {
+    var id= $('#AutobusesPEliminar').val();
+        if (id=="")
+            return;
+    $.ajax({
+            data:{id: id},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/paradas/getNumeroParadas',
+            success: function(json){
+                $('#indicePEliminar').empty();
+                $("<option value='"+"'>Selecciona un indice</option>").appendTo("#indicePEliminar");
+                
+                for(var i=0;i<json;i++){
+                    $("<option value='"+(i+1)+"'>"+(i+1)+"</option>").appendTo("#indicePEliminar");
                     }
 
 

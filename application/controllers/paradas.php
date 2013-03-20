@@ -128,7 +128,24 @@ class Paradas extends CI_Controller {
 
   function eliminarParada()
    {
-     # code...
+      $_id = $this->security->xss_clean($this->input->post('id'));
+      $this->load->model('parada');
+      $resultado=$this->parada->getParadas($_id);
+      $indice= (int) $this->security->xss_clean($this->input->post('indice'));
+      unset($resultado[0]['Paradas'][$indice-1]);
+      $resultado[0]['Paradas']=array_values($resultado[0]['Paradas']);
+      $actulizo=$this->parada->actualizarParadas($_id,$resultado[0]['Paradas']);
+      $exito=null;
+      if($actulizo)
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
+
+      echo json_encode($exito);
    } 
   
   function getNumeroParadas()

@@ -1,6 +1,6 @@
 	<div>
 		<label for="autobuses">Autobuses</label>
-		<select id="AutobusesPEditar" name="autobuses">
+		<select id="AutobusesPEliminar" name="autobuses">
 			<option value="">Elige una autobus </option>
 			<?
 				foreach ($autobuses as $key => $value) {
@@ -16,12 +16,4 @@
 		<label for="indice">Indice :</label> 
 		<select id="indicePEliminar" name="indice"></select>
 	</div>
-	<div>
-		<label for="latitud">Latitud :</label> 
-		<input alt="Latitud de la parada" id="latitud" name="latitud" placeholder="19.xxxxxx" type="text"/>
-	</div>
-	<div>
-		<label for="longitud">Longitud :</label> 
-		<input alt="Longitud de la parada" id="longitud" name="longitud" placeholder="-96.xxxxxx" type="text"/>
-	</div>
-	<button id="eliminar-parada">Eliminar</button>
+	<button id="parada-eliminar">Eliminar</button>
