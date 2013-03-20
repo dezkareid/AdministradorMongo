@@ -12,6 +12,7 @@ function asignaFuncion () {
     $('#autobus-agregar').on('click', agregarAutobus);
     $('#autobus-eliminar').on('click',eliminarAutobus);
     $('#listaAutobuses').on('change',buscaAutobus);
+    $('#parada-agregar').on('click', agregarParada);
 }
 
 function actualizar () {
@@ -90,6 +91,24 @@ function agregarDependencia () {
             dataType: 'json',
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/dependencias/agregarDependencia',
+            success: function(json){
+                console.log(json);
+            }
+        });
+}
+
+function agregarParada () {
+    var id= $('#AutobusesP').val();
+    var indice= $('#indice').val();
+    var tiempo= $('#tiempo').val();
+    var latitud= $('#latitud').val();
+    var longitud= $('#longitud').val();
+    var tiempoEspera= $('#espera').val();
+    $.ajax({
+            data:{id: id, indice:indice, tiempo: tiempo, latitud: latitud, longitud:longitud},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/paradas/agregarParada',
             success: function(json){
                 console.log(json);
             }

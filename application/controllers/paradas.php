@@ -24,14 +24,17 @@ class Paradas extends CI_Controller {
     $this->load->view('menus/menu_usuario_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
-    $this->load->model('parada');
-    $this->load->view('paradas/agrega_parada_view');
+    $this->load->model('autobus');
+    $autobuses=$this->autobus->getAutobuses();
+    $data= array('autobuses'=>$autobuses);
+    $this->load->view('paradas/agrega_parada_view',$data);
     $this->load->view('footer');
   } 
 
   function agregarParada()
   {
      $_id = $this->security->xss_clean($this->input->post('id'));
+     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
     //unset($resultado[0]['Paradas'][1]);
     $indice= (int) $this->security->xss_clean($this->input->post('indice'));
@@ -54,7 +57,7 @@ class Paradas extends CI_Controller {
       array_push($paradas, $resultado[0]['Paradas'][$i]);
     }
    
-    $actulizo=$this->parada->actualizarParadas($_id,$paradas)
+    $actulizo=$this->parada->actualizarParadas($_id,$paradas);
     $exito=null;
     if($actulizo)
     {
@@ -68,29 +71,6 @@ class Paradas extends CI_Controller {
     echo json_encode($exito);
   }
 
-  }
-
-  function agregarDependencia()
-  {
-    
-    $_id = $this->security->xss_clean($this->input->post('id'));
-    $indice = $this->security->xss_clean($this->input->post('indice'));
-    $latitud = $this->security->xss_clean($this->input->post('latitud'));
-    $longitud = $this->security->xss_clean($this->input->post('longitud'));
-    $this->load->model('parada');
-    $resultado=$this->parada->agregar($_id,$paradas);
-    $exito=null;
-    if($resultado)
-    {
-      $exito= array("Men"=>1);
-    }
-    else
-    {
-      $exito= array("Men"=>0);
-    }
-
-    echo json_encode($exito);
-  }
 
   function editar()
   {
