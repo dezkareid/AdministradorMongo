@@ -33,8 +33,8 @@ class Paradas extends CI_Controller {
 
   function agregarParada()
   {
-     $_id = $this->security->xss_clean($this->input->post('id'));
-     $this->load->model('parada');
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
     //unset($resultado[0]['Paradas'][1]);
     $indice= (int) $this->security->xss_clean($this->input->post('indice'));
@@ -79,7 +79,10 @@ class Paradas extends CI_Controller {
     $this->load->view('menus/menu_usuario_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
-    $this->load->view('paradas/edita_parada_view');
+    $this->load->model('autobus');
+    $autobuses=$this->autobus->getAutobuses();
+    $data= array('autobuses'=>$autobuses);
+    $this->load->view('paradas/edita_parada_view',$data);
     $this->load->view('footer');
   } 
 
@@ -94,6 +97,23 @@ class Paradas extends CI_Controller {
     $this->load->view('footer');
   } 
   
+  function getNumeroParadas()
+  {
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $this->load->model('parada');
+    $resultado=$this->parada->getParadas($_id);
+    $final=sizeof($resultado[0]['Paradas']);
+    echo json_encode($final);
+  }
+
+  function getParada()
+  {
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $indice = (int) $this->security->xss_clean($this->input->post('indice'));
+    $this->load->model('parada');
+    $resultado=$this->parada->getParadas($_id);
+    echo json_encode($resultado[0]['Paradas'][$indice-1]);
+  }
 }
 
  

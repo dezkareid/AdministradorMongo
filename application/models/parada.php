@@ -22,5 +22,7 @@ Class Parada extends CI_Model{
     $this->mongo_db->select(array('Paradas'));
     return $this->mongo_db->get('Autobuses');
   }
+
+
 }
 ?>

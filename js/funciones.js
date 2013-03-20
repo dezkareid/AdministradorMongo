@@ -13,6 +13,9 @@ function asignaFuncion () {
     $('#autobus-eliminar').on('click',eliminarAutobus);
     $('#listaAutobuses').on('change',buscaAutobus);
     $('#parada-agregar').on('click', agregarParada);
+    $('#AutobusesPEditar').on('change',getNumerosParadas);
+    $('#indicep').on('change',buscaParada);
+
 }
 
 function actualizar () {
@@ -51,6 +54,23 @@ function actualizarDependencia () {
             dataType: 'json',
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/dependencias/actualizarDependencia',
+            success: function(json){
+                console.log(json);
+            }
+        });
+}
+
+function actualizarParada() {
+    var id= $('#AutobusesP').val();
+    var indice= $('#indicep').val();
+    var tiempo= $('#tiempo').val();
+    var latitud= $('#latitud').val();
+    var longitud= $('#longitud').val();
+    $.ajax({
+            data:{id: id, indice:indice, tiempo: tiempo, latitud: latitud, longitud:longitud},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/paradas/actualizarParada',
             success: function(json){
                 console.log(json);
             }
@@ -103,7 +123,6 @@ function agregarParada () {
     var tiempo= $('#tiempo').val();
     var latitud= $('#latitud').val();
     var longitud= $('#longitud').val();
-    var tiempoEspera= $('#espera').val();
     $.ajax({
             data:{id: id, indice:indice, tiempo: tiempo, latitud: latitud, longitud:longitud},
             dataType: 'json',
@@ -135,6 +154,12 @@ function asignarDatosDependencia (json) {
     $('#pagina').val(json[0].WWW);
     $('#lat').val(json[0].LATITUD);
     $('#long').val(json[0].LONGITUD);    
+}
+
+function asignarDatosParada (json) {
+    $('#tiempo').val(json.Tiempo);
+    $('#latitud').val(json.Latitud); 
+    $('#longitud').val(json.Longitud);
 }
 
 function asignarDatos(json) {
@@ -178,6 +203,25 @@ function buscaDependencia (e) {
         });
 }
 
+function buscaParada (e) {
+    var id= $('#AutobusesPEditar').val();
+    var indice= $('#indicep').val();
+        if (id==""||indice==""){
+            console.log("Nada");
+            return;
+        }
+    $.ajax({
+            data:{id: id, indice: indice},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/paradas/getParada',
+            success: function(json){
+                asignarDatosParada(json);
+
+
+            }
+        });
+}
 
 function buscaUsuario (e) {
     var id= $('#usuarios').val();
@@ -261,6 +305,29 @@ function guarda(){
                 escribe(json);
             }
         });
+}
+
+function getNumerosParadas (e) {
+    var id= $('#AutobusesPEditar').val();
+        if (id=="")
+            return;
+    $.ajax({
+            data:{id: id},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/paradas/getNumeroParadas',
+            success: function(json){
+                $('#indicep').empty();
+                $("<option value='"+"'>Selecciona un indice</option>").appendTo("#indicep");
+                
+                for(var i=0;i<json;i++){
+                    $("<option value='"+(i+1)+"'>"+(i+1)+"</option>").appendTo("#indicep");
+                    }
+
+
+            }
+        });
+
 }
 
 function escribe(json){
