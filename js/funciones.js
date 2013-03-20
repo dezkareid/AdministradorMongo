@@ -15,6 +15,7 @@ function asignaFuncion () {
     $('#parada-agregar').on('click', agregarParada);
     $('#AutobusesPEditar').on('change',getNumerosParadas);
     $('#indicep').on('change',buscaParada);
+    $('#parada-actualizar').on('click', actualizarParada);
 
 }
 
@@ -61,7 +62,7 @@ function actualizarDependencia () {
 }
 
 function actualizarParada() {
-    var id= $('#AutobusesP').val();
+    var id= $('#AutobusesPEditar').val();
     var indice= $('#indicep').val();
     var tiempo= $('#tiempo').val();
     var latitud= $('#latitud').val();

@@ -28,4 +28,4 @@
 		<label for="longitud">Longitud :</label> 
 		<input alt="Longitud de la parada"  id="longitud" name="longitud" placeholder="-96.xxxxxx" type="text"/>
 	</div>
-	<button id="actualizar-parada">Actualizar</button>
+	<button id="parada-actualizar">Actualizar</button>

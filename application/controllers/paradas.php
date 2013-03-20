@@ -31,6 +31,46 @@ class Paradas extends CI_Controller {
     $this->load->view('footer');
   } 
 
+  function actualizarParada()
+  {
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $this->load->model('parada');
+    $resultado=$this->parada->getParadas($_id);
+    //unset($resultado[0]['Paradas'][1]);
+    $indice= (int) $this->security->xss_clean($this->input->post('indice'));
+    $tiempo= (int) $this->security->xss_clean($this->input->post('tiempo'));
+    $latitud = $this->security->xss_clean($this->input->post('latitud'));
+    $longitud = $this->security->xss_clean($this->input->post('longitud'));
+    //$paradas=array();
+    $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
+    $resultado[0]['Paradas'][$indice-1]=$parada;
+    /*$final=sizeof($resultado[0]['Paradas']);
+    for ($i=0;$i<$indice-1;$i++) 
+    {
+      array_push($paradas, $resultado[0]['Paradas'][$i]);
+    }
+
+    array_push($paradas, $parada);
+
+    for ($i=$indice;$i<$final;$i++) 
+    {
+      array_push($paradas, $resultado[0]['Paradas'][$i]);
+    }*/
+    $actulizo=$this->parada->actualizarParadas($_id,$resultado[0]['Paradas']);
+    $exito=null;
+    if($actulizo)
+    {
+      $exito= array("Men"=>1);
+    }
+    else
+    {
+      $exito= array("Men"=>0);
+    }
+
+    echo json_encode($exito);
+
+  }
+
   function agregarParada()
   {
     $_id = $this->security->xss_clean($this->input->post('id'));
@@ -43,7 +83,7 @@ class Paradas extends CI_Controller {
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $paradas=array();
     $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
-    $resultado[0]['Paradas']=array_values($resultado[0]['Paradas']);
+    //$resultado[0]['Paradas']=array_values($resultado[0]['Paradas']);
     $final=sizeof($resultado[0]['Paradas']);
     for ($i=0;$i<$indice-1;$i++) 
     {
