@@ -1,27 +1,19 @@
 	<div>
-		<label for="usuarios">Usuarios</label>
-		<select id="listaUsuarios" name="usuarios">
+		<label for="autobuses">Autobuses</label>
+		<select id="listaAutobuses" name="autobuses">
+			<option value="">Elige una autobus </option>
 		</select>
 	</div>
-
 	<div>
-		<label for="nombre">Nombre:</label> 
-		<input alt="Aqui va tu nombre" autofocus id="nombre" name="nombre" type="text"  placeholder="Nombre completo" />
+		<label for="indice">Indice :</label> 
+		<input alt="Indice de visita del autobus a esa paradda" autofocus id="indice" name="indice" placeholder="1" type="number"/>
 	</div>
 	<div>
-		<label for="correo">Correo:</label>
-		<input alt="Aqui va tu correo electronico" id="correo" placeholder="ejemplo@gmail" name="correo" type="email" />
+		<label for="latitud">Latitud :</label> 
+		<input alt="Latitud de la parada"  id="latitud" name="latitud" placeholder="19.xxxxxx" type="text"/>
 	</div>
-	<div>
-		<label for="password">Contraseña:</label>
-		<input alt="Aqui va tu contraseña" id="password" name="password" placeholder="Contraseña" type="password"/>
+		<div>
+		<label for="longitud">Longitud :</label> 
+		<input alt="Longitud de la parada"  id="longitud" name="longitud" placeholder="-96.xxxxxx" type="text"/>
 	</div>
-	<div>
-		<label for="acceso">Nivel de acceso:</label>
-		<select id="acceso" name="acceso">
-			<option value="admin">Administrador</option>
-			<option value="normal">Normal</option>
-		</select>
-	</div>
-
-	<button>Guardar cambios</button>
+	<button id="actualizar-parada">Actualizar</button>

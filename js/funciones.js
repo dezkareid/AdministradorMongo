@@ -9,6 +9,9 @@ function asignaFuncion () {
     $('#dependencia-actualizar').on('click',actualizarDependencia);
     $('#dependencia-agregar').on('click', agregarDependencia);
     $('#dependencia-eliminar').on('click',eliminarDependencia);
+    $('#autobus-agregar').on('click', agregarAutobus);
+    $('#autobus-eliminar').on('click',eliminarAutobus);
+    $('#listaAutobuses').on('change',buscaAutobus);
 }
 
 function actualizar () {
@@ -53,6 +56,24 @@ function actualizarDependencia () {
         });
 }
 
+function agregarAutobus () {
+    var linea= $('#linea').val();
+    var descripcion= $('#descripcion').val();
+    var trayecto= $('#trayecto').val();
+    var primeraSalida= $('#primeraSalida').val();
+    var ultimaSalida= $('#ultimaSalida').val();
+    var tiempoEspera= $('#espera').val();
+    $.ajax({
+            data:{linea: linea, descripcion:descripcion, trayecto: trayecto, primeraSalida: primeraSalida, ultimaSalida:ultimaSalida, tiempoEspera:tiempoEspera},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/CI/index.php/autobuses/agregarAutobus',
+            success: function(json){
+                console.log(json);
+            }
+        });
+}
+
 function agregarDependencia () {
     var nombre= $('#nombre').val();
     var unidad= $('#unidad').val();
@@ -75,6 +96,15 @@ function agregarDependencia () {
         });
 }
 
+function asignarDatosAutobus (json) {
+    $('#linea').val(json[0].Linea);
+    $('#descripcion').val(json[0].Descripcion); 
+    $('#trayecto').val(json[0].Trayecto);
+    $('#primeraSalida').val("0"+json[0].PrimeraSalida);
+    $('#ultimaSalida').val(json[0].UltimaSalida);
+    $('#espera').val(json[0].TiempoEspera);
+}
+
 function asignarDatosDependencia (json) {
     $('#nombre').val(json[0].NOMBRE);
     $('#unidad').val(json[0].UNIDAD);
@@ -93,6 +123,23 @@ function asignarDatos(json) {
     $('#correo').val(json[0].Correo);
     $('#usuario').val(json[0].Usuario);
     $('#acceso option[value='+json[0].Acceso+']').attr('selected',true);
+}
+
+function buscaAutobus (e) {
+    var id= $('#listaAutobuses').val();
+        if (id=="")
+            return;
+    $.ajax({
+            data:{id: id},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/CI/index.php/autobuses/consultarAutobus',
+            success: function(json){
+                asignarDatosAutobus(json);
+
+
+            }
+        });
 }
 
 function buscaDependencia (e) {
@@ -142,6 +189,23 @@ function eliminar () {
             url: 'http://localhost/CI/index.php/usuarios/eliminarUsuario',
             success: function(json){
                 escribe(json);
+            }
+        });
+}
+
+function eliminarAutobus () {
+    var id= $('#Autobuses').val();
+    if (id=="")
+            return;
+
+    $.ajax({
+            data:{id: id},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/CI/index.php/autobuses/eliminarAutobus',
+            success: function(json){
+                //escribe(json);
+                console.log(json);
             }
         });
 }

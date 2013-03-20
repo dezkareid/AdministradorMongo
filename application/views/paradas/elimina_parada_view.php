@@ -1,12 +1,19 @@
 	<div>
-		<label for="usuarios">Usuarios</label>
-		<select id="listaUsuarios" name="usuarios">
+		<label for="autobuses">Autobuses</label>
+		<select id="listaAutobuses" name="autobuses">
+			<option value="">Elige una autobus </option>
 		</select>
 	</div>
-
 	<div>
-		<label for="nombre">Nombre:</label> 
-		<input alt="Aqui va tu nombre" autofocus id="nombre" name="nombre" type="text"  placeholder="Nombre completo" />
+		<label for="indice">Indice :</label> 
+		<input alt="Indice de visita del autobus a esa paradda" autofocus id="indice" name="indice" placeholder="1" type="number"/>
 	</div>
-
-	<button>Eliminar</button>
+	<div>
+		<label for="latitud">Latitud :</label> 
+		<input alt="Latitud de la parada" id="latitud" name="latitud" placeholder="19.xxxxxx" type="text"/>
+	</div>
+	<div>
+		<label for="longitud">Longitud :</label> 
+		<input alt="Longitud de la parada" id="longitud" name="longitud" placeholder="-96.xxxxxx" type="text"/>
+	</div>
+	<button id="eliminar-parada">Eliminar</button>

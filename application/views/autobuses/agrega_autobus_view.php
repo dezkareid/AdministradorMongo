@@ -1,24 +1,26 @@
 	<div>
-		<label for="nombre">Nombre:</label> 
-		<input alt="Aqui va tu nombre" autofocus id="nombre" name="nombre" placeholder="Nombre completo" type="text"   />
+		<label for="linea">Linea :</label> 
+		<input alt="Linea del autobus" autofocus id="linea" name="linea" placeholder="Interbus" type="text"/>
 	</div>
 	<div>
-		<label for="correo">Correo:</label>
-		<input alt="Aqui va tu correo electronico" id="correo"  name="correo" placeholder="ejemplo@gmail" type="email" />
+		<label for="descripcion">Descripción:</label>
+		<textarea alt="Descripción del autobus" id="descripcion"  name="descripcion" placeholder="Amarillo pasa por medicina"></textarea>
 	</div>
 	<div>
-		<label for="usuario">Usuario:</label>
-		<input alt="Aqui va tu nombre de usuario" id="usuario" name="usuario" placeholder="Tu nombre de usuario" type="text"  />
+		<label for="trayecto">Trayecto:</label>
+		<textarea alt="Trayecto que recorre el autobus" id="trayecto" name="trayecto" placeholder="AV. Xalapa, Av. Ávila Camacho"></textarea>
 	</div>
 	<div>
-		<label for="password">Contraseña:</label>
-		<input alt="Aqui va tu contraseña" id="password" name="password" placeholder="Contraseña" type="password"/>
+		<label for="primeraSalida">Primera Salida:</label>
+		<input alt="Hora de la primera salida del autobus" id="primeraSalida" name="primeraSalida" placeholder="06:00" type="time"/>
 	</div>
 	<div>
-		<label for="acceso">Nivel de acceso:</label>
-		<select id="acceso" name="acceso">
-			<option value="admin">Administrador</option>
-			<option value="normal">Normal</option>
-		</select>
+		<label for="ultimaSalida">Última Salida:</label>
+		<input alt="Hora de la ultima salida del autobus" id="ultimaSalida" name="ultimaSalida" placeholder="22:00" type="time"/>
 	</div>
-	<button>Agregar</button>
+	<div>
+		<label for="tiempoEspera">Tiempo de espera:</label>
+		<input alt="Tiempo que tarda pasar cada camión" id="tiempoEspera" name="tiempoEspera" placeholder="30" type="number"/>
+	</div>
+
+	<button id="autobus-agregar">Agregar</button>

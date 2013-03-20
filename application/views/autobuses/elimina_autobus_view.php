@@ -1,12 +1,15 @@
 	<div>
-		<label for="usuarios">Usuarios</label>
-		<select id="listaUsuarios" name="usuarios">
+		<label for="Autobuses">Autobuses</label>
+		<select id="Autobuses" name="Autobuses">
+			<option value="">Elige una autobus </option>
+			<?
+				foreach ($autobuses as $key => $value) {
+				?>
+				<option value=<? echo $value["_id"];?>> <? echo $value["Linea"]; ?> </option>
+				<?
+				}
+			?>
 		</select>
 	</div>
 
-	<div>
-		<label for="nombre">Nombre:</label> 
-		<input alt="Aqui va tu nombre" autofocus id="nombre" name="nombre" type="text"  placeholder="Nombre completo" />
-	</div>
-
-	<button>Eliminar</button>
+	<button id="autobus-eliminar">Eliminar</button>

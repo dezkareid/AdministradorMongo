@@ -1,27 +1,40 @@
 	<div>
-		<label for="usuarios">Usuarios</label>
-		<select id="listaUsuarios" name="usuarios">
+		<label for="autobuses">Autobuses</label>
+		<select id="listaAutobuses" name="autobuses">
+			<option value="-1">Elige una autobus </option>
+			<?
+				foreach ($autobuses as $key => $value) {
+				?>
+				<option value=<? echo $value["_id"];?>> <? echo $value["Linea"]; ?> </option>
+				<?
+				}
+
+			?>
 		</select>
 	</div>
+	<div>
+		<label for="linea">Linea :</label> 
+		<input alt="Linea del autobus" autofocus id="linea" name="linea" placeholder="Interbus" type="text"/>
+	</div>
+	<div>
+		<label for="descripcion">Descripción:</label>
+		<textarea alt="Descripción del autobus" id="descripcion"  name="descripcion" placeholder="Amarillo pasa por medicina"></textarea>
+	</div>
+	<div>
+		<label for="trayecto">Trayecto:</label>
+		<textarea alt="Trayecto que recorre el autobus" id="trayecto" name="trayecto" placeholder="AV. Xalapa, Av. Ávila Camacho"></textarea>
+	</div>
+	<div>
+		<label for="primeraSalida">Primera Salida:</label>
+		<input alt="Hora de la primera salida del autobus" id="primeraSalida" name="primeraSalida" placeholder="06:00" type="time"/>
+	</div>
+	<div>
+		<label for="ultimaSalida">Última Salida:</label>
+		<input alt="Hora de la ultima salida del autobus" id="ultimaSalida" name="ultimaSalida" placeholder="22:00" type="time"/>
+	</div>
+	<div>
+		<label for="espera">Tiempo de espera:</label>
+		<input alt="Tiempo que tarda pasar cada camión" id="espera" name="espera" placeholder="30" type="number"/>
+	</div>
 
-	<div>
-		<label for="nombre">Nombre:</label> 
-		<input alt="Aqui va tu nombre" autofocus id="nombre" name="nombre" type="text"  placeholder="Nombre completo" />
-	</div>
-	<div>
-		<label for="correo">Correo:</label>
-		<input alt="Aqui va tu correo electronico" id="correo" placeholder="ejemplo@gmail" name="correo" type="email" />
-	</div>
-	<div>
-		<label for="password">Contraseña:</label>
-		<input alt="Aqui va tu contraseña" id="password" name="password" placeholder="Contraseña" type="password"/>
-	</div>
-	<div>
-		<label for="acceso">Nivel de acceso:</label>
-		<select id="acceso" name="acceso">
-			<option value="admin">Administrador</option>
-			<option value="normal">Normal</option>
-		</select>
-	</div>
-
-	<button>Guardar cambios</button>
+	<button id="actualizar-autobus">Actualizar</button>
