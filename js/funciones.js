@@ -26,7 +26,7 @@ function actualizar () {
             data:{id: id, nombre: nombre, correo: correo, usuario: usuario, password: password, acceso: acceso},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/usuarios/actualizarUsuario',
+            url: 'http://localhost/AdministradorMongo/index.php/usuarios/actualizarUsuario',
             success: function(json){
                 escribe(json);
             }
@@ -49,7 +49,7 @@ function actualizarDependencia () {
             data:{id: id,nombre: nombre, unidad:unidad, colonia: colonia, calle: calle, numero:numero, cp: cp, telefono:telefono, pagina: pagina, latitud: latitud, longitud: longitud},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/dependencias/actualizarDependencia',
+            url: 'http://localhost/AdministradorMongo/index.php/dependencias/actualizarDependencia',
             success: function(json){
                 console.log(json);
             }
@@ -67,7 +67,7 @@ function agregarAutobus () {
             data:{linea: linea, descripcion:descripcion, trayecto: trayecto, primeraSalida: primeraSalida, ultimaSalida:ultimaSalida, tiempoEspera:tiempoEspera},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/autobuses/agregarAutobus',
+            url: 'http://localhost/AdministradorMongo/index.php/autobuses/agregarAutobus',
             success: function(json){
                 console.log(json);
             }
@@ -89,7 +89,7 @@ function agregarDependencia () {
             data:{nombre: nombre, unidad:unidad, colonia: colonia, calle: calle, numero:numero, cp: cp, telefono:telefono, pagina: pagina, latitud: latitud, longitud: longitud},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/dependencias/agregarDependencia',
+            url: 'http://localhost/AdministradorMongo/index.php/dependencias/agregarDependencia',
             success: function(json){
                 console.log(json);
             }
@@ -133,7 +133,7 @@ function buscaAutobus (e) {
             data:{id: id},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/autobuses/consultarAutobus',
+            url: 'http://localhost/AdministradorMongo/index.php/autobuses/consultarAutobus',
             success: function(json){
                 asignarDatosAutobus(json);
 
@@ -150,7 +150,7 @@ function buscaDependencia (e) {
             data:{id: id},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/dependencias/consultarDependencia',
+            url: 'http://localhost/AdministradorMongo/index.php/dependencias/consultarDependencia',
             success: function(json){
                 asignarDatosDependencia(json);
 
@@ -168,7 +168,7 @@ function buscaUsuario (e) {
             data:{id: id},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/usuarios/consultarUsuario',
+            url: 'http://localhost/AdministradorMongo/index.php/usuarios/consultarUsuario',
             success: function(json){
                 asignarDatos(json);
 
@@ -186,7 +186,7 @@ function eliminar () {
             data:{id: id},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/usuarios/eliminarUsuario',
+            url: 'http://localhost/AdministradorMongo/index.php/usuarios/eliminarUsuario',
             success: function(json){
                 escribe(json);
             }
@@ -202,7 +202,7 @@ function eliminarAutobus () {
             data:{id: id},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/autobuses/eliminarAutobus',
+            url: 'http://localhost/AdministradorMongo/index.php/autobuses/eliminarAutobus',
             success: function(json){
                 //escribe(json);
                 console.log(json);
@@ -219,7 +219,7 @@ function eliminarDependencia () {
             data:{id: id},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/dependencias/eliminarDependencia',
+            url: 'http://localhost/AdministradorMongo/index.php/dependencias/eliminarDependencia',
             success: function(json){
                 escribe(json);
             }
@@ -237,7 +237,7 @@ function guarda(){
             data:{nombre: nombre, correo: correo, usuario: usuario,password:password,acceso: acceso},
             dataType: 'json',
             type: 'post',
-            url: 'http://localhost/CI/index.php/usuarios/guardaUsuario',
+            url: 'http://localhost/AdministradorMongo/index.php/usuarios/guardaUsuario',
             success: function(json){
                 escribe(json);
             }
