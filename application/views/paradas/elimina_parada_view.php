@@ -1,12 +1,20 @@
 	<div>
 		<label for="autobuses">Autobuses</label>
-		<select id="listaAutobuses" name="autobuses">
+		<select id="AutobusesPEditar" name="autobuses">
 			<option value="">Elige una autobus </option>
+			<?
+				foreach ($autobuses as $key => $value) {
+				?>
+				<option value=<? echo $value["_id"];?>> <? echo $value["Linea"]; ?> </option>
+				<?
+				}
+
+			?>
 		</select>
 	</div>
 	<div>
 		<label for="indice">Indice :</label> 
-		<input alt="Indice de visita del autobus a esa paradda" autofocus id="indice" name="indice" placeholder="1" type="number"/>
+		<select id="indicePEliminar" name="indice"></select>
 	</div>
 	<div>
 		<label for="latitud">Latitud :</label> 

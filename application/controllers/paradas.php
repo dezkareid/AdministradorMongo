@@ -36,26 +36,12 @@ class Paradas extends CI_Controller {
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
-    //unset($resultado[0]['Paradas'][1]);
     $indice= (int) $this->security->xss_clean($this->input->post('indice'));
     $tiempo= (int) $this->security->xss_clean($this->input->post('tiempo'));
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
-    //$paradas=array();
     $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
     $resultado[0]['Paradas'][$indice-1]=$parada;
-    /*$final=sizeof($resultado[0]['Paradas']);
-    for ($i=0;$i<$indice-1;$i++) 
-    {
-      array_push($paradas, $resultado[0]['Paradas'][$i]);
-    }
-
-    array_push($paradas, $parada);
-
-    for ($i=$indice;$i<$final;$i++) 
-    {
-      array_push($paradas, $resultado[0]['Paradas'][$i]);
-    }*/
     $actulizo=$this->parada->actualizarParadas($_id,$resultado[0]['Paradas']);
     $exito=null;
     if($actulizo)
@@ -133,9 +119,17 @@ class Paradas extends CI_Controller {
     $this->load->view('menus/menu_usuario_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
-    $this->load->view('paradas/elimina_parada_view');
+    $this->load->model('autobus');
+    $autobuses=$this->autobus->getAutobuses();
+    $data= array('autobuses'=>$autobuses);
+    $this->load->view('paradas/elimina_parada_view',$data);
     $this->load->view('footer');
-  } 
+  }
+
+  function eliminarParada()
+   {
+     # code...
+   } 
   
   function getNumeroParadas()
   {
