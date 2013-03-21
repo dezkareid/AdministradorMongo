@@ -14,7 +14,7 @@ class Paradas extends CI_Controller {
     $this->load->view('menus/menu_parada_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
-    $this->load->view('footer');
+    $this->load->view('footerParadas');
   } 
 
   function agregar()
@@ -28,7 +28,7 @@ class Paradas extends CI_Controller {
     $autobuses=$this->autobus->getAutobuses();
     $data= array('autobuses'=>$autobuses);
     $this->load->view('paradas/agrega_parada_view',$data);
-    $this->load->view('footer');
+    $this->load->view('footerParadas');
   } 
 
   function actualizarParada()
@@ -109,7 +109,7 @@ class Paradas extends CI_Controller {
     $autobuses=$this->autobus->getAutobuses();
     $data= array('autobuses'=>$autobuses);
     $this->load->view('paradas/edita_parada_view',$data);
-    $this->load->view('footer');
+    $this->load->view('footerParadas');
   } 
 
   function eliminar()
@@ -123,7 +123,7 @@ class Paradas extends CI_Controller {
     $autobuses=$this->autobus->getAutobuses();
     $data= array('autobuses'=>$autobuses);
     $this->load->view('paradas/elimina_parada_view',$data);
-    $this->load->view('footer');
+    $this->load->view('footerParadas');
   }
 
   function eliminarParada()
