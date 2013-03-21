@@ -21,7 +21,7 @@ Class Autobus extends CI_Model{
 
   public function actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera)
   {
-    $autobus = array('_id' => $_id,
+    $autobus = array(
       'Linea' => $linea, 
       'Descripcion'=>$descripcion,
       'Trayecto'=> $trayecto,

@@ -37,4 +37,4 @@
 		<input alt="Tiempo que tarda pasar cada camión" id="espera" name="espera" placeholder="30" type="number"/>
 	</div>
 
-	<button id="actualizar-autobus">Actualizar</button>
+	<button id="autobus-actualizar">Actualizar</button>

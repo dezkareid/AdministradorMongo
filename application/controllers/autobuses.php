@@ -52,6 +52,29 @@ class Autobuses extends CI_Controller {
     echo json_encode($exito);
   }
 
+  function actualizarAutobus()
+  {
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $linea = $this->security->xss_clean($this->input->post('linea'));
+    $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
+    $trayecto = $this->security->xss_clean($this->input->post('trayecto'));
+    $primeraSalida = $this->security->xss_clean($this->input->post('primeraSalida'));
+    $ultimaSalida = $this->security->xss_clean($this->input->post('ultimaSalida'));
+    $tiempoEspera = $this->security->xss_clean($this->input->post('tiempoEspera'));
+    $this->load->model('autobus');
+    $resultado=$this->autobus->actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
+    if($resultado)
+    {
+      $exito= array("Men"=>1);
+    }
+    else
+    {
+      $exito= array("Men"=>0);
+    }
+
+    echo json_encode($exito);
+  }
+
   function consultarAutobus()
   {
     $id = $this->security->xss_clean($this->input->post('id'));

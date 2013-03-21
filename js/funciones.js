@@ -10,6 +10,7 @@ function asignaFuncion () {
     $('#dependencia-agregar').on('click', agregarDependencia);
     $('#dependencia-eliminar').on('click',eliminarDependencia);
     $('#autobus-agregar').on('click', agregarAutobus);
+    $('#autobus-actualizar').on('click', actualizarAutobus);
     $('#autobus-eliminar').on('click',eliminarAutobus);
     $('#listaAutobuses').on('change',buscaAutobus);
     $('#parada-agregar').on('click', agregarParada);
@@ -39,6 +40,27 @@ function actualizar () {
                 escribe(json);
             }
         });
+}
+
+function actualizarAutobus() {
+    var id= $('#listaAutobuses').val();
+    console.log(id);
+    var linea= $('#linea').val();
+    var descripcion= $('#descripcion').val();
+    var trayecto= $('#trayecto').val();
+    var primeraSalida= $('#primeraSalida').val();
+    var ultimaSalida= $('#ultimaSalida').val();
+    var tiempoEspera= $('#espera').val();
+    $.ajax({
+            data:{id: id,linea: linea, descripcion:descripcion, trayecto: trayecto, primeraSalida: primeraSalida, ultimaSalida:ultimaSalida, tiempoEspera:tiempoEspera},
+            dataType: 'json',
+            type: 'post',
+            url: 'http://localhost/AdministradorMongo/index.php/autobuses/actualizarAutobus',
+            success: function(json){
+                console.log(json);
+            }
+        });
+
 }
 
 function actualizarDependencia () {
@@ -142,7 +164,7 @@ function asignarDatosAutobus (json) {
     $('#linea').val(json[0].Linea);
     $('#descripcion').val(json[0].Descripcion); 
     $('#trayecto').val(json[0].Trayecto);
-    $('#primeraSalida').val("0"+json[0].PrimeraSalida);
+    $('#primeraSalida').val(json[0].PrimeraSalida);
     $('#ultimaSalida').val(json[0].UltimaSalida);
     $('#espera').val(json[0].TiempoEspera);
 }
@@ -296,8 +318,6 @@ function eliminarDependencia () {
 function eliminarParada() {
     var id= $('#AutobusesPEliminar').val();
     var indice= $('#indicePEliminar').val();
-    console.log(indice);
-    console.log(id);
     $.ajax({
             data:{id: id, indice:indice},
             dataType: 'json',
