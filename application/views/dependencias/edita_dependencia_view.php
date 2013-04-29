@@ -56,6 +56,8 @@
 					<input alt="Longitud del lugar" id="long" name="long" placeholder="96.00020200" type="text"/>
 				</div>
 				<button id="dependencia-actualizar">Actualizar</button>
+				<br/>
+				<label id="msg"></label>
 				</div>
 			<div class="span7">
 	       		<div id="map_canvas">
@@ -64,3 +66,5 @@
 	    </div>
 	</div>
 </div>
+<script src="<?=base_url()?>js/jquery.js"></script>
+<script src="<?=base_url()?>js/fEditarDependencia.js"></script>

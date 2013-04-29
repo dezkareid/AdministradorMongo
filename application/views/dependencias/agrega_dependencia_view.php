@@ -43,6 +43,8 @@
 					<input alt="Longitud del lugar" id="long" name="long" placeholder="96.00020200" type="text"/>
 				</div>
 				<button id="dependencia-agregar">Agregar</button>
+				<br/>
+				<label id="msg"></label>
 			</div>
 			<div class="span7">
 	       		<div id="map_canvas">
@@ -51,3 +53,6 @@
 	    </div>
 	</div>
 </div>
+<script src="<?=base_url()?>js/jquery.js"></script>
+<script src="<?=base_url()?>js/fAgregarDependencia.js"></script>
+		
