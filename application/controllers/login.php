@@ -44,25 +44,11 @@ class Login extends CI_Controller {
 		$this->load->view('login_view');
 		$this->load->view('footer');
         }
-        // Prep the query
-        // Validate the user can login
-       /* $result = $this->login_model->validate();
-        // Now we verify the result
-        if(! $result){
-            // If user did not validate, then show them login page again
-            $this->index();
-        }else{
-            // If user did validate, 
-            // Send them to members area
-            redirect('home');
-        } */ 
-      
+       
     }
 
 	
 }
 
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
 ?>

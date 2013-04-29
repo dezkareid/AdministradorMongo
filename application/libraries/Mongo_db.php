@@ -745,7 +745,7 @@ class Mongo_db {
 	 *	Resets the class variables to default settings
 	 */
 
-	private function clear() {
+	public function clear() {
 		$this->selects = array();
 		$this->wheres = array();
 		$this->limit = NULL;

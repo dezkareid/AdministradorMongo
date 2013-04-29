@@ -4,21 +4,28 @@ class Usuarios extends CI_Controller {
  
   function __construct(){
     parent::__construct();
+    $this->load->model('users');
   }
  
-
-  function index()
+  function verifica()
   {
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
-    $this->load->view('menus/menu_acciones_view');
-    $this->load->view('menus/menu_end_view');
-    $this->load->view('footer');
-  } 
+
+    $result=$this->users->logueado();
+    switch ($result) {
+      case 0:
+        redirect('login', 'refresh');
+        break;
+      case 1:
+        redirect('home', 'refresh');
+        break;
+    } 
+  }
+
 
   function agregar()
   {
+
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -30,14 +37,15 @@ class Usuarios extends CI_Controller {
 
   function consultarUsuario()
   {
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
-    $this->load->model('users');
     $datos=$this->users->getUsuario($id);
     echo json_encode($datos);
   }
 
   function guardaUsuario()
   {
+    $this->verifica();
     $usuario = $this->security->xss_clean($this->input->post('usuario'));
     $password = $this->security->xss_clean($this->input->post('password'));
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
@@ -60,12 +68,12 @@ class Usuarios extends CI_Controller {
 
   function editar()
   { 
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
-    $this->load->model('users');
     $usuarios=$this->users->getUsuarios();
     $data= array('usuarios'=>$usuarios);
     $this->load->view('usuarios/edita_usuario_view',$data);
@@ -74,13 +82,13 @@ class Usuarios extends CI_Controller {
 
   function actualizarUsuario()
   {
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
     $usuario = $this->security->xss_clean($this->input->post('usuario'));
     $password = $this->security->xss_clean($this->input->post('password'));
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
     $correo = $this->security->xss_clean($this->input->post('correo'));
     $acceso = $this->security->xss_clean($this->input->post('acceso'));    
-    $this->load->model('users');
     $exito=null;
     if($this->users->actualizaUsuario($id,$usuario,$password,$nombre,$correo,$acceso))
     {
@@ -96,12 +104,12 @@ class Usuarios extends CI_Controller {
 
   function eliminar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
-    $this->load->model('users');
     $usuarios=$this->users->getUsuarios();
     $data= array('usuarios'=>$usuarios);
     $this->load->view('usuarios/elimina_usuario_view',$data);
@@ -110,8 +118,9 @@ class Usuarios extends CI_Controller {
 
   function eliminarUsuario()
   {
+
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
-    $this->load->model('users');
     $exito=null;
     if($this->users->eliminaUsuario($id))
     {
@@ -123,6 +132,7 @@ class Usuarios extends CI_Controller {
     }
       
     echo json_encode($exito);
+  
   }
   
 }

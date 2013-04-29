@@ -4,32 +4,24 @@ class Dependencias extends CI_Controller {
  
   function __construct(){
     parent::__construct();
+    $this->load->model('users');
   }
  
-
- function index()
-  {
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
-    $this->load->view('menus/menu_acciones_view');
-    $this->load->view('menus/menu_end_view');
-    $this->load->view('footer');
-  } 
-
   function agregar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->view('dependencias/agrega_dependencia_view');
-    $this->load->view('footer');
+    $this->load->view('footerDependencias');
   } 
 
   function actualizarDependencia()
   {
+    $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
     $unidad = $this->security->xss_clean($this->input->post('unidad'));
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
@@ -58,7 +50,7 @@ class Dependencias extends CI_Controller {
 
   function agregarDependencia()
   {
-    
+    $this->verifica();
     $_id = "UV0".$this->getId();
     $unidad = $this->security->xss_clean($this->input->post('unidad'));
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
@@ -88,6 +80,7 @@ class Dependencias extends CI_Controller {
 
   function consultarDependencia()
   {
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('dependencia');
     $datos=$this->dependencia->getDependencia($id);
@@ -96,6 +89,7 @@ class Dependencias extends CI_Controller {
 
   function getId()
   {
+    $this->verifica();
     $this->load->model('dependencia');
     $dependencia=$this->dependencia->getUltimoId();
     if(sizeof($dependencia)==0)
@@ -108,6 +102,7 @@ class Dependencias extends CI_Controller {
   
   function editar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -117,11 +112,12 @@ class Dependencias extends CI_Controller {
     $dependencias=$this->dependencia->getDependencias();
     $data= array('dependencias'=>$dependencias);
     $this->load->view('dependencias/edita_dependencia_view',$data);
-    $this->load->view('footer');
+    $this->load->view('footerDependencias');
   } 
 
   function eliminar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -136,6 +132,7 @@ class Dependencias extends CI_Controller {
 
   function eliminarDependencia()
   {
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('dependencia');
     $exito=null;
@@ -151,6 +148,14 @@ class Dependencias extends CI_Controller {
     echo json_encode($exito);
   }
 
+  function verifica()
+  {
+
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+      
+  }
   
 }
 

@@ -31,13 +31,16 @@ function mostrar(posicion){
     /* posicion es el parametro que tiene los valores, las variables para latitud y longitud las obtenemos del parametro posicion.coords*/
     latOrigen = posicion.coords.latitude; //obtengo la latitud
     longOrigen = posicion.coords.longitude; //obtengo la longitud
-    if(markerOrigen==null)
+    if(markerOrigen==null){
         markerOrigen= new google.maps.Marker({
         position: new google.maps.LatLng(latOrigen,longOrigen), 
                 map: map,
                 icon: imagen
             });
+        map.setCenter(new google.maps.LatLng(latOrigen,longOrigen));
+    }
     else{
+            map.setCenter(new google.maps.LatLng(latOrigen,longOrigen));
             markerOrigen .setPosition(new google.maps.LatLng(latOrigen,longOrigen));
             markerOrigen.setTitle("Tu estas aqui");
             infoOrigen.close();
@@ -65,10 +68,11 @@ function agregarM(marker,json,index){
             icon: imagen,
             title: json.NOMBRE
         });
- 
+        map.setCenter(new google.maps.LatLng(parseFloat(json.LATITUD),parseFloat(json.LONGITUD)));
         }else{
             marker.setPosition(new google.maps.LatLng(parseFloat(json.LATITUD),parseFloat(json.LONGITUD)));
             marker.setTitle(json.NOMBRE);
+            map.setCenter(new google.maps.LatLng(parseFloat(json.LATITUD),parseFloat(json.LONGITUD)));
 
         }
     if (index==0) {

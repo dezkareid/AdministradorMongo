@@ -180,6 +180,11 @@ function asignarDatosDependencia (json) {
     $('#pagina').val(json[0].WWW);
     $('#lat').val(json[0].LATITUD);
     $('#long').val(json[0].LONGITUD);    
+    if(json[0].LATITUD==""|json[0].LONGITUD=="")
+      return;
+    var posicion= new google.maps.LatLng(parseFloat(json[0].LATITUD),parseFloat(json[0].LONGITUD));
+    agregarMarcador(posicion);
+    map.setCenter(posicion);
 }
 
 function asignarDatosParada (json) {
@@ -218,6 +223,7 @@ function buscaDependencia (e) {
             return;
     $.ajax({
             data:{id: id},
+            async: false,
             dataType: 'json',
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/dependencias/consultarDependencia',

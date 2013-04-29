@@ -1,3 +1,11 @@
+<div class="container">
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    
+      <div class="container-fluid">
+    	<div class="row-fluid">
+      
+      <div class="span5">
+
 	<div>
 		<label for="autobuses">Autobuses</label>
 		<select id="AutobusesPEditar" name="autobuses">
@@ -30,4 +38,12 @@
 	</div>
 	<button id="ver-Coordenadas"> Visualizar Coordenas</button>
 	<button id="parada-actualizar">Actualizar</button>
-	<div id="map_canvas"></div>
+	</div>
+	<div class="span7">
+       <div id="map_canvas"></div>
+      </div>
+
+       </div>
+    <!-- Example row of columns -->
+    </div>
+</div>

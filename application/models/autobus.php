@@ -42,6 +42,7 @@ Class Autobus extends CI_Model{
     ))->delete("Autobuses");
   }
 
+
   public function getUltimoId()
   {
 

@@ -4,21 +4,13 @@ class Autobuses extends CI_Controller {
  
   function __construct(){
     parent::__construct();
+    $this->load->model('users');
   }
  
 
-  function index()
-  {
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
-    $this->load->view('menus/menu_acciones_view');
-    $this->load->view('menus/menu_end_view');
-    $this->load->view('footer');
-  } 
-
   function agregar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -30,6 +22,7 @@ class Autobuses extends CI_Controller {
 
   function agregarAutobus()
   {
+    $this->verifica();
     $_id = "AU0".$this->getId();
     $linea = $this->security->xss_clean($this->input->post('linea'));
     $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
@@ -54,6 +47,7 @@ class Autobuses extends CI_Controller {
 
   function actualizarAutobus()
   {
+    $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
     $linea = $this->security->xss_clean($this->input->post('linea'));
     $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
@@ -77,6 +71,7 @@ class Autobuses extends CI_Controller {
 
   function consultarAutobus()
   {
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('autobus');
     $datos=$this->autobus->getAutobus($id);
@@ -85,6 +80,7 @@ class Autobuses extends CI_Controller {
 
   function editar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -99,6 +95,7 @@ class Autobuses extends CI_Controller {
 
   function eliminar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -113,6 +110,7 @@ class Autobuses extends CI_Controller {
 
   function eliminarAutobus()
   {
+    $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('autobus');
     $exito=null;
@@ -126,6 +124,16 @@ class Autobuses extends CI_Controller {
     }
       
     echo json_encode($exito);
+  }
+
+
+  function verifica()
+  {
+
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+      
   }
 
   function getId()

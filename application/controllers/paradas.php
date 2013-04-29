@@ -4,21 +4,13 @@ class Paradas extends CI_Controller {
  
   function __construct(){
     parent::__construct();
+    $this->load->model('users');
   }
  
 
-  function index()
-  {
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_parada_view');
-    $this->load->view('menus/menu_acciones_view');
-    $this->load->view('menus/menu_end_view');
-    $this->load->view('footerParadas');
-  } 
-
   function agregar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -33,6 +25,7 @@ class Paradas extends CI_Controller {
 
   function actualizarParada()
   {
+    $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -59,6 +52,7 @@ class Paradas extends CI_Controller {
 
   function agregarParada()
   {
+    $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -100,6 +94,7 @@ class Paradas extends CI_Controller {
 
   function editar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -114,6 +109,7 @@ class Paradas extends CI_Controller {
 
   function eliminar()
   {
+    $this->verifica();
     $this->load->view('encabezados');
     $this->load->view('menus/menu_begin_view');
     $this->load->view('menus/menu_usuario_view');
@@ -128,6 +124,7 @@ class Paradas extends CI_Controller {
 
   function eliminarParada()
    {
+      $this->verifica();
       $_id = $this->security->xss_clean($this->input->post('id'));
       $this->load->model('parada');
       $resultado=$this->parada->getParadas($_id);
@@ -147,9 +144,20 @@ class Paradas extends CI_Controller {
 
       echo json_encode($exito);
    } 
+
+
+  function verifica()
+  {
+
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+      
+  }
   
   function getNumeroParadas()
   {
+    $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -159,6 +167,7 @@ class Paradas extends CI_Controller {
 
   function getParada()
   {
+    $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
     $indice = (int) $this->security->xss_clean($this->input->post('indice'));
     $this->load->model('parada');
