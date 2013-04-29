@@ -37,3 +37,6 @@
 	<button id="actualizar">Actualizar datos</button>
 	<br/>
 	<label id="msg"></label>
+	<script src="<?=base_url()?>js/jquery.js"></script>
+	<script src="<?=base_url()?>bootstrap/js/bootstrap.js"></script>
+	<script src="<?=base_url()?>js/fEditarUsuarios.js"></script>
