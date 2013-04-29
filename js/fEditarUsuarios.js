@@ -17,6 +17,7 @@ function actualizar () {
     var acceso= $('#acceso').val();
 
     $.ajax({
+            async: false,
             data:{id: id, nombre: nombre, correo: correo, usuario: usuario, password: password, acceso: acceso},
             dataType: 'json',
             type: 'post',
@@ -25,6 +26,13 @@ function actualizar () {
                 escribe(json);
             }
         });
+}
+
+function asignarDatos(json) {
+    $('#nombre').val(json[0].Nombre);
+    $('#correo').val(json[0].Correo);
+    $('#usuario').val(json[0].Usuario);
+    $('#acceso option[value='+json[0].Acceso+']').attr('selected',true);
 }
 
 function buscaUsuario (e) {
@@ -57,4 +65,5 @@ function escribe(json){
 
 function limpiar () {
     $('input').val("");
-}
+    $("#usuarios").val("");
+    }

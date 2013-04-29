@@ -12,6 +12,7 @@ function guarda(){
     var acceso= $('#acceso').val();
 
 	$.ajax({
+            async: false,
             data:{nombre: nombre, correo: correo, usuario: usuario,password:password,acceso: acceso},
             dataType: 'json',
             type: 'post',
