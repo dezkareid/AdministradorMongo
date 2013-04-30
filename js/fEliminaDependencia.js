@@ -36,5 +36,6 @@ function escribe(json){
 }
 
 function limpiar () {
-    $('input').val("");
+    $("#Dependencias :selected").remove();
+    $('#Dependencias').val("");
 }
