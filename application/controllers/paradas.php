@@ -30,7 +30,7 @@ class Paradas extends CI_Controller {
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
     $indice= (int) $this->security->xss_clean($this->input->post('indice'));
-    $tiempo= (int) $this->security->xss_clean($this->input->post('tiempo'));
+    $tiempo= (float) $this->security->xss_clean($this->input->post('tiempo'));
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
@@ -119,7 +119,6 @@ class Paradas extends CI_Controller {
     $autobuses=$this->autobus->getAutobuses();
     $data= array('autobuses'=>$autobuses);
     $this->load->view('paradas/elimina_parada_view',$data);
-    $this->load->view('footerParadas');
   }
 
   function eliminarParada()

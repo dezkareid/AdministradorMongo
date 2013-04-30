@@ -24,9 +24,11 @@ function actualizarParada() {
                 paradasEditar[ultimoMarker].Tiempo=tiempo;
                 paradasEditar[ultimoMarker].Latitud=latitud;
                 paradasEditar[ultimoMarker].Longitud=longitud;
-                marker.setIcon(null);
-                marcadores[ultimoMarker].setMap(null);
-                marcadores[ultimoMarker]=marker;
+                if(marker){
+                    marker.setIcon(null);
+                    marcadores[ultimoMarker].setMap(null);
+                    marcadores[ultimoMarker]=marker;
+                }
                 marker=null;
                 escribe(json);
             }
