@@ -20,6 +20,7 @@ function agregarMarcadores(posicion,numero)
     
 }
 
+
 function agregarMarcador(posicion)
 {
 
