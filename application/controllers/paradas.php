@@ -31,7 +31,9 @@ class Paradas extends CI_Controller {
 
   function actualizarParada()
   {
-    $this->verifica();
+    $result=$this->users->logueado();
+    if ($result==0)
+      redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -58,13 +60,15 @@ class Paradas extends CI_Controller {
 
   function agregarParada()
   {
-    $this->verifica();
+    $result=$this->users->logueado();
+    if ($result==0)
+      redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
     //unset($resultado[0]['Paradas'][1]);
     $indice= (int) $this->security->xss_clean($this->input->post('indice'));
-    $tiempo= (int) $this->security->xss_clean($this->input->post('tiempo'));
+    $tiempo= (float) $this->security->xss_clean($this->input->post('tiempo'));
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $paradas=array();
@@ -123,7 +127,9 @@ class Paradas extends CI_Controller {
 
   function eliminarParada()
    {
-      $this->verifica();
+      $result=$this->users->logueado();
+      if ($result==0)
+        redirect('login', 'refresh');
       $_id = $this->security->xss_clean($this->input->post('id'));
       $this->load->model('parada');
       $resultado=$this->parada->getParadas($_id);
@@ -147,7 +153,9 @@ class Paradas extends CI_Controller {
   
   function getNumeroParadas()
   {
-    $this->verifica();
+    $result=$this->users->logueado();
+    if ($result==0)
+      redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -157,7 +165,9 @@ class Paradas extends CI_Controller {
 
   function getParada()
   {
-    $this->verifica();
+    $result=$this->users->logueado();
+    if ($result==0)
+      redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
     $indice = (int) $this->security->xss_clean($this->input->post('indice'));
     $this->load->model('parada');
@@ -167,7 +177,9 @@ class Paradas extends CI_Controller {
 
   function getParadas()
   {
-    $this->verifica();
+    $result=$this->users->logueado();
+    if ($result==0)
+      redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -179,7 +191,7 @@ class Paradas extends CI_Controller {
   {
 
     $result=$this->users->logueado();
-    if ($result<1)
+    if ($result==0)
       redirect('login', 'refresh');
       
   }
