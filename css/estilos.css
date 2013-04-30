@@ -27,3 +27,8 @@ div input
 	width:50%;
 	margin: 0 .1em;
 }
+
+#msg{
+	max-width: 80%;
+	width: 80%;
+}
