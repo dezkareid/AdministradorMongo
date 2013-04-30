@@ -7,13 +7,19 @@ class Paradas extends CI_Controller {
     $this->load->model('users');
   }
  
+  function agregaMenus(){
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+    $this->load->view('encabezados');
+    $this->load->view('menus/menu_begin_view');
+    if($result==2)
+      $this->load->view('menus/menu_usuario_view');
+  }
 
   function agregar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('autobus');
@@ -94,10 +100,7 @@ class Paradas extends CI_Controller {
 
   function editar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('autobus');
@@ -109,10 +112,7 @@ class Paradas extends CI_Controller {
 
   function eliminar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('autobus');
@@ -144,15 +144,6 @@ class Paradas extends CI_Controller {
       echo json_encode($exito);
    } 
 
-
-  function verifica()
-  {
-
-    $result=$this->users->logueado();
-    if ($result<1)
-      redirect('login', 'refresh');
-      
-  }
   
   function getNumeroParadas()
   {
@@ -184,6 +175,14 @@ class Paradas extends CI_Controller {
   }
 }
 
+  function verifica()
+  {
+
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+      
+  }
  
 
 ?>

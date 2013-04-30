@@ -11,17 +11,11 @@ class Home extends CI_Controller {
   function index(){
     if(!$this->session->userdata('logueo'))
    {
-
-     redirect('login', 'refresh');
-
+      redirect('login', 'refresh');
    }
 
-    $session_data = $this->session->userdata('logueo');
-    $user = $session_data['user'];
-    $pass = $session_data['pass'];
-    $result=$this->users->loged($user,$pass);
-      
-      if ($result==0)
+    $result=$this->users->logueado();  
+    if ($result==0)
         redirect('login', 'refresh');
       
     $this->load->view('encabezados');

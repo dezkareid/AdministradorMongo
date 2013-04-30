@@ -8,12 +8,35 @@ class Autobuses extends CI_Controller {
   }
  
 
-  function agregar()
+  
+
+  function actualizarAutobus()
   {
     $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $linea = $this->security->xss_clean($this->input->post('linea'));
+    $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
+    $trayecto = $this->security->xss_clean($this->input->post('trayecto'));
+    $primeraSalida = $this->security->xss_clean($this->input->post('primeraSalida'));
+    $ultimaSalida = $this->security->xss_clean($this->input->post('ultimaSalida'));
+    $tiempoEspera = $this->security->xss_clean($this->input->post('tiempoEspera'));
+    $this->load->model('autobus');
+    $resultado=$this->autobus->actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
+    if($resultado)
+    {
+      $exito= array("Men"=>1);
+    }
+    else
+    {
+      $exito= array("Men"=>0);
+    }
+
+    echo json_encode($exito);
+  }
+
+  function agregar()
+  {
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->view('autobuses/agrega_autobus_view');
@@ -45,28 +68,14 @@ class Autobuses extends CI_Controller {
     echo json_encode($exito);
   }
 
-  function actualizarAutobus()
-  {
-    $this->verifica();
-    $_id = $this->security->xss_clean($this->input->post('id'));
-    $linea = $this->security->xss_clean($this->input->post('linea'));
-    $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
-    $trayecto = $this->security->xss_clean($this->input->post('trayecto'));
-    $primeraSalida = $this->security->xss_clean($this->input->post('primeraSalida'));
-    $ultimaSalida = $this->security->xss_clean($this->input->post('ultimaSalida'));
-    $tiempoEspera = $this->security->xss_clean($this->input->post('tiempoEspera'));
-    $this->load->model('autobus');
-    $resultado=$this->autobus->actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
-    if($resultado)
-    {
-      $exito= array("Men"=>1);
-    }
-    else
-    {
-      $exito= array("Men"=>0);
-    }
-
-    echo json_encode($exito);
+  function agregaMenus(){
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+    $this->load->view('encabezados');
+    $this->load->view('menus/menu_begin_view');
+    if($result==2)
+      $this->load->view('menus/menu_usuario_view');
   }
 
   function consultarAutobus()
@@ -80,10 +89,7 @@ class Autobuses extends CI_Controller {
 
   function editar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('autobus');
@@ -95,10 +101,7 @@ class Autobuses extends CI_Controller {
 
   function eliminar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('autobus');

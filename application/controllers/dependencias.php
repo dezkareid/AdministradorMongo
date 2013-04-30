@@ -6,18 +6,7 @@ class Dependencias extends CI_Controller {
     parent::__construct();
     $this->load->model('users');
   }
- 
-  function agregar()
-  {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
-    $this->load->view('menus/menu_acciones_view');
-    $this->load->view('menus/menu_end_view');
-    $this->load->view('dependencias/agrega_dependencia_view');
-    $this->load->view('footerDependencias');
-  } 
+  
 
   function actualizarDependencia()
   {
@@ -48,6 +37,15 @@ class Dependencias extends CI_Controller {
     echo json_encode($exito);
   }
 
+  function agregar()
+  { 
+    $this->agregaMenus();
+    $this->load->view('menus/menu_acciones_view');
+    $this->load->view('menus/menu_end_view');
+    $this->load->view('dependencias/agrega_dependencia_view');
+    $this->load->view('footerDependencias');
+  }
+  
   function agregarDependencia()
   {
     $this->verifica();
@@ -77,6 +75,15 @@ class Dependencias extends CI_Controller {
     echo json_encode($exito);
   }
 
+  function agregaMenus(){
+    $result=$this->users->logueado();
+    if ($result<1)
+      redirect('login', 'refresh');
+    $this->load->view('encabezados');
+    $this->load->view('menus/menu_begin_view');
+    if($result==2)
+      $this->load->view('menus/menu_usuario_view');
+  }
 
   function consultarDependencia()
   {
@@ -102,10 +109,7 @@ class Dependencias extends CI_Controller {
   
   function editar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('dependencia');
@@ -117,10 +121,7 @@ class Dependencias extends CI_Controller {
 
   function eliminar()
   {
-    $this->verifica();
-    $this->load->view('encabezados');
-    $this->load->view('menus/menu_begin_view');
-    $this->load->view('menus/menu_usuario_view');
+    $this->agregaMenus();
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $this->load->model('dependencia');
@@ -156,7 +157,8 @@ class Dependencias extends CI_Controller {
       redirect('login', 'refresh');
       
   }
-  
+
+
 }
 
  
