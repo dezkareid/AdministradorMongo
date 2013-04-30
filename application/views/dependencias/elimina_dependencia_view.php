@@ -13,3 +13,5 @@
 	</div>
 
 	<button id="dependencia-eliminar">Eliminar</button>
+	<br/>
+	<label id="msg"></label>
