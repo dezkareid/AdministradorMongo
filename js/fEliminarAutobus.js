@@ -13,6 +13,7 @@ function eliminarAutobus () {
             return;
 
     $.ajax({
+            async: false,
             data:{id: id},
             dataType: 'json',
             type: 'post',
