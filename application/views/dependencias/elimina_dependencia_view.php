@@ -15,3 +15,5 @@
 	<button id="dependencia-eliminar">Eliminar</button>
 	<br/>
 	<label id="msg"></label>
+	<script src="<?=base_url()?>js/jquery.js"></script>
+	<script src="<?=base_url()?>js/fEliminaDependencia.js"></script>
