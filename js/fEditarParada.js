@@ -21,6 +21,13 @@ function actualizarParada() {
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/paradas/actualizarParada',
             success: function(json){
+                paradasEditar[ultimoMarker].Tiempo=tiempo;
+                paradasEditar[ultimoMarker].Latitud=latitud;
+                paradasEditar[ultimoMarker].Longitud=longitud;
+                marker.setIcon(null);
+                marcadores[ultimoMarker].setMap(null);
+                marcadores[ultimoMarker]=marker;
+                marker=null;
                 escribe(json);
             }
         });
@@ -28,9 +35,9 @@ function actualizarParada() {
 
 function asignarDatosParada (indice) {
     marcadores[indice].setIcon(imagen);
-    $('#tiempo').val(paradas[indice].Tiempo);
-    $('#latitud').val(paradas[indice].Latitud); 
-    $('#longitud').val(paradas[indice].Longitud);
+    $('#tiempo').val(paradasEditar[indice].Tiempo);
+    $('#latitud').val(paradasEditar[indice].Latitud); 
+    $('#longitud').val(paradasEditar[indice].Longitud);
 }
 
 function buscaParada (e) {
@@ -61,7 +68,7 @@ function getParadas (e) {
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/paradas/getParadas',
             success: function(json){
-                paradas=json;
+                paradasEditar=json;
                 $("<option value='"+"'>Selecciona un indice</option>").appendTo("#indicep");
                 
                 for(var i=0;i<json.length;i++){
@@ -76,35 +83,10 @@ function getParadas (e) {
 
 }
 
-/*
-function getNumerosParadas (e) {
-    var id= $('#AutobusesPEditar').val();
-        if (id=="")
-            return;
-    $.ajax({
-            data:{id: id},
-            dataType: 'json',
-            type: 'post',
-            url: 'http://localhost/AdministradorMongo/index.php/paradas/getNumeroParadas',
-            success: function(json){
-                $('#indicep').empty();
-                $("<option value='"+"'>Selecciona un indice</option>").appendTo("#indicep");
-                
-                for(var i=0;i<json;i++){
-                    $("<option value='"+(i+1)+"'>"+(i+1)+"</option>").appendTo("#indicep");
-                    }
-
-
-            }
-        });
-
-}*/
-
-
 function escribe(json){
 	if(json.Men==1)
     {
-       $('#msg').text('Usuario agregado con éxito'); 
+       $('#msg').text('Parada actualizada con éxito'); 
        limpiar();
     }
     else
@@ -115,4 +97,6 @@ function escribe(json){
 
 function limpiar () {
     $('input').val("");
+    $('#indicep').val("");
+
 }
