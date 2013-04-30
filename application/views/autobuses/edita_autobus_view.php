@@ -38,6 +38,9 @@
 	</div>
 	<button id="autobus-actualizar">Actualizar</button>
 	<br/>
-	<label id="msg"></label>
+	<br/>
+	<div class="alert alert-info">
+  		<label id="msg"></label>	
+  	</div>
 	<script src="<?=base_url()?>js/jquery.js"></script>
 	<script src="<?=base_url()?>js/fEditarAutobus.js"></script>

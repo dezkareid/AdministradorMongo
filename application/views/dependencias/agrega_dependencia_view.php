@@ -44,7 +44,10 @@
 				</div>
 				<button id="dependencia-agregar">Agregar</button>
 				<br/>
-				<label id="msg"></label>
+				<br/>
+				<div class="alert alert-info">
+  					<label id="msg"></label>	
+  				</div>
 			</div>
 			<div class="span7">
 	       		<div id="map_canvas">

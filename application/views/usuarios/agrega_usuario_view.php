@@ -23,8 +23,10 @@
 	</div>
 	<button id="agregar">Agregar</button>
 	<br/>
-	<label id="msg"></label>
-
+	<br/>
+	<div class="alert alert-info">
+  		<label id="msg"></label>	
+  	</div>
 	<script src="<?=base_url()?>js/jquery.js"></script>
 	<script src="<?=base_url()?>js/fAgregarUsuarios.js"></script>
 

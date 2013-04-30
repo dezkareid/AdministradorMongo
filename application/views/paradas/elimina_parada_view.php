@@ -22,6 +22,7 @@
 				</div>
 				<button id="parada-eliminar">Eliminar</button>
 				<br/>
+				<br/>
 				<div class="alert alert-info">
   					<label id="msg"></label>	
   				</div>
