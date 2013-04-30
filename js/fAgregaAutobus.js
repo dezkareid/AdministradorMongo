@@ -38,4 +38,5 @@ function escribe(json){
 
 function limpiar () {
     $('input').val("");
+    $('textarea').val("");
 }

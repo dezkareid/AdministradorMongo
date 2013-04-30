@@ -7,7 +7,6 @@ function asignaFuncion () {
 
 function actualizarAutobus() {
     var id= $('#listaAutobuses').val();
-    console.log(id);
     var linea= $('#linea').val();
     var descripcion= $('#descripcion').val();
     var trayecto= $('#trayecto').val();
@@ -38,6 +37,7 @@ function asignarDatosAutobus (json) {
 
 
 function buscaAutobus (e) {
+    limpiar();
     var id= $('#listaAutobuses').val();
         if (id=="")
             return;
@@ -64,5 +64,10 @@ function escribe(json){
     {
         $('#msg').text('Hubo un problema al realizar la operación');
     }
+}
+
+function limpiar () {
+    $('input').val("");
+    $('textarea').val("");
 }
 
