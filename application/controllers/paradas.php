@@ -174,6 +174,15 @@ class Paradas extends CI_Controller {
     $resultado=$this->parada->getParadas($_id);
     echo json_encode($resultado[0]['Paradas'][$indice-1]);
   }
+
+  function getParadas()
+  {
+    $this->verifica();
+    $_id = $this->security->xss_clean($this->input->post('id'));
+    $this->load->model('parada');
+    $resultado=$this->parada->getParadas($_id);
+    echo json_encode($resultado[0]['Paradas']);
+  }
 }
 
  
