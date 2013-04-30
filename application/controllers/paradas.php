@@ -187,14 +187,4 @@ class Paradas extends CI_Controller {
   }
 }
 
-  function verifica()
-  {
-
-    $result=$this->users->logueado();
-    if ($result==0)
-      redirect('login', 'refresh');
-      
-  }
- 
-
 ?>
