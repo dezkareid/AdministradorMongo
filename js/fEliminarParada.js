@@ -1,6 +1,5 @@
 var map;
 var ultimoMarker=null;
-var marker=null;
 var paradas;
 var marcadores= [];
 var imagen = 'http://localhost/img/UV.png';
@@ -10,6 +9,7 @@ function asignaFuncion () {
 	$('#indicePEliminar').on('change',marcarParada);
     $('#AutobusesPEliminar').on('change',getParadas);
     $('#parada-eliminar').on('click', eliminarParada);
+    cargar();
 }
 
 
@@ -40,8 +40,6 @@ function cargar()
     };
     map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
-
-    $('#ver-Coordenadas').on('click', marcarCoordenadas);
 }
 
 function cargarMarcadores(json)
@@ -54,7 +52,16 @@ function cargarMarcadores(json)
     
 }
 
+function eliminarMarcadores()
+{
+  if (marcadores) {
+    for (i in marcadores) {
+      marcadores[i].setMap(null);
+    }
+    marcadores.length = 0;
+  }
 
+}
 
 function eliminarParada() {
     var id= $('#AutobusesPEliminar').val();
@@ -65,16 +72,15 @@ function eliminarParada() {
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/paradas/eliminarParada',
             success: function(json){
-                console.log(json);
+                escribe(json);
             }
         });
 }
 
 function getParadas (e) {
     eliminarMarcadores();
-    $('input').val("");
-    $('#indicep').empty();
-    var id= $('#AutobusesPEditar').val();
+    $('#indicePEliminar').empty();
+    var id= $('#AutobusesPEliminar').val();
         if (id=="")
             return;
     $.ajax({
@@ -102,8 +108,10 @@ function getParadas (e) {
 function escribe(json){
 	if(json.Men==1)
     {
-       $('#msg').text('Usuario agregado con éxito'); 
+       $('#msg').text('Parada eliminada con éxito'); 
        limpiar();
+       marcadores[ultimoMarker].setMap(null);
+       marcadores.splice(ultimoMarker,1);
     }
     else
     {
@@ -112,7 +120,8 @@ function escribe(json){
 }
 
 function limpiar () {
-    $('input').val("");
+    $("#indicePEliminar :selected").remove();
+    $('#indicePEliminar').val("");
 }
 
 function marcarParada () {
