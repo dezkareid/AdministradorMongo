@@ -22,5 +22,8 @@
 		<label for="tiempoEspera">Tiempo de espera:</label>
 		<input alt="Tiempo que tarda pasar cada camión" id="tiempoEspera" name="tiempoEspera" placeholder="30" type="number"/>
 	</div>
-
 	<button id="autobus-agregar">Agregar</button>
+	<br/>
+	<label id="msg"></label>
+	<script src="<?=base_url()?>js/jquery.js"></script>
+	<script src="<?=base_url()?>js/fAgregaAutobus.js"></script>

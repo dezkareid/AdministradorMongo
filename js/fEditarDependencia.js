@@ -19,6 +19,7 @@ function actualizarDependencia () {
     var latitud= $('#lat').val();
     var longitud= $('#long').val();
     $.ajax({
+            async: false,
             data:{id: id,nombre: nombre, unidad:unidad, colonia: colonia, calle: calle, numero:numero, cp: cp, telefono:telefono, pagina: pagina, latitud: latitud, longitud: longitud},
             dataType: 'json',
             type: 'post',
@@ -53,7 +54,6 @@ function buscaDependencia (e) {
         if (id=="")
             return;
     $.ajax({
-            async: false,
             data:{id: id},
             async: false,
             dataType: 'json',
@@ -70,15 +70,11 @@ function buscaDependencia (e) {
 function escribe(json){
 	if(json.Men==1)
     {
-       $('#msg').text('Usuario agregado con éxito'); 
-       limpiar();
+       $('#msg').text('Dependencia actualizada con éxito'); 
+       
     }
     else
     {
         $('#msg').text('Hubo un problema al realizar la operación');
     }
-}
-
-function limpiar () {
-    $('input').val("");
 }

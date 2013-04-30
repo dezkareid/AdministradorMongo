@@ -13,3 +13,7 @@
 	</div>
 
 	<button id="autobus-eliminar">Eliminar</button>
+	<br/>
+	<label id="msg"></label>
+	<script src="<?=base_url()?>js/jquery.js"></script>
+	<script src="<?=base_url()?>js/fEliminarAutobus.js"></script>

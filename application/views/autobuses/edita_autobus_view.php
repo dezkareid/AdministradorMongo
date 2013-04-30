@@ -1,7 +1,7 @@
 	<div>
 		<label for="autobuses">Autobuses</label>
 		<select id="listaAutobuses" name="autobuses">
-			<option value="-1">Elige una autobus </option>
+			<option value="">Elige una autobus </option>
 			<?
 				foreach ($autobuses as $key => $value) {
 				?>
@@ -36,5 +36,8 @@
 		<label for="espera">Tiempo de espera:</label>
 		<input alt="Tiempo que tarda pasar cada camión" id="espera" name="espera" placeholder="30" type="number"/>
 	</div>
-
 	<button id="autobus-actualizar">Actualizar</button>
+	<br/>
+	<label id="msg"></label>
+	<script src="<?=base_url()?>js/jquery.js"></script>
+	<script src="<?=base_url()?>js/fEditarAutobus.js"></script>
