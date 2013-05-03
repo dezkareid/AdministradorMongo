@@ -22,4 +22,6 @@
                 <li><a href="<?=base_url('index.php/paradas/eliminar');?>">Eliminar</a></li>
               </ul>
             </li>
-       
+            <li class="dropdown">
+              <a href="<?=base_url('index.php/home/salir');?>">Salir </a>
+            </li>

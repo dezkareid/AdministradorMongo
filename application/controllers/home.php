@@ -28,6 +28,12 @@ class Home extends CI_Controller {
     $this->load->view('footer');
   } 
 
+  function salir(){
+    $this->session->unset_userdata('logueo');
+    session_destroy();
+    redirect('login', 'refresh');
+
+  }
 }
 
  

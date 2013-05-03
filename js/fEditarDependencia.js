@@ -25,7 +25,7 @@ function actualizarDependencia () {
             type: 'post',
             url: 'http://localhost/AdministradorMongo/index.php/dependencias/actualizarDependencia',
             success: function(json){
-                console.log(json);
+                escribe(json);
             }
         });
 }
@@ -75,6 +75,9 @@ function escribe(json){
     }
     else
     {
-        $('#msg').text('Hubo un problema al realizar la operación');
+       if(json.Men==0)
+            $('#msg').text('Hubo un problema al realizar la operación');
+        else
+            $('#msg').text('Datos no validos');
     }
 }

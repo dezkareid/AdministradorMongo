@@ -55,7 +55,7 @@ Class Autobus extends CI_Model{
   public function getAutobuses()
   {
     $this->mongo_db->order_by(array('Linea'=>'ASC'));
-    $this->mongo_db->select(array('_id','Linea'));
+    $this->mongo_db->select(array('_id','Linea','Descripcion'));
     return $this->mongo_db->get('Autobuses');
   }
 

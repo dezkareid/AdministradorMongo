@@ -5,6 +5,7 @@ class Usuarios extends CI_Controller {
   function __construct(){
     parent::__construct();
     $this->load->model('users');
+    $this->load->library('Validador');
   }
  
   function verifica()
@@ -39,7 +40,10 @@ class Usuarios extends CI_Controller {
   {
     $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
-    $datos=$this->users->getUsuario($id);
+    $id= $this->validador->limpieza($id);
+    $datos="Error";
+    if(!$this->validador->estaVacia($id))
+      $datos=$this->users->getUsuario($id);
     echo json_encode($datos);
   }
 
@@ -47,22 +51,29 @@ class Usuarios extends CI_Controller {
   {
     $this->verifica();
     $usuario = $this->security->xss_clean($this->input->post('usuario'));
+    $usuario = $this->validador->limpieza($usuario);
     $password = $this->security->xss_clean($this->input->post('password'));
+    $password = $this->validador->limpieza($password);
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
+    $nombre = $this->validador->limpieza($nombre);
     $correo = $this->security->xss_clean($this->input->post('correo'));
-    $acceso = $this->security->xss_clean($this->input->post('acceso'));
-    $data = array('Usuario' => $usuario,'Password' => sha1($password), 'Nombre'=> $nombre, 'Correo'=> $correo, 'Acceso'=> $acceso);
-    $this->load->model('users');
+    $correo = $this->validador->limpieza($correo);
+    $acceso = $this->security->xss_clean($this->input->post('acceso'));    
+    $acceso = $this->validador->limpieza($acceso);    
     $exito=null;
-    if($this->users->agrega($data))
-    {
-      $exito= array("Men"=>1);
+    if($this->validador->validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,0)){
+      $data = array('Usuario' => $usuario,'Password' => sha1($password), 'Nombre'=> $nombre, 'Correo'=> $correo, 'Acceso'=> $acceso);
+      if($this->users->agrega($data))
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
     }
     else
-    {
-      $exito= array("Men"=>0);
-    }
-      
+     $exito= array("Men"=>2); 
     echo json_encode($exito);
   }
 
@@ -84,21 +95,29 @@ class Usuarios extends CI_Controller {
   {
     $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
+    $id= $this->validador->limpieza($id);
     $usuario = $this->security->xss_clean($this->input->post('usuario'));
+    $usuario = $this->validador->limpieza($usuario);
     $password = $this->security->xss_clean($this->input->post('password'));
+    $password = $this->validador->limpieza($password);
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
+    $nombre = $this->validador->limpieza($nombre);
     $correo = $this->security->xss_clean($this->input->post('correo'));
+    $correo = $this->validador->limpieza($correo);
     $acceso = $this->security->xss_clean($this->input->post('acceso'));    
+    $acceso = $this->validador->limpieza($acceso);
     $exito=null;
-    if($this->users->actualizaUsuario($id,$usuario,$password,$nombre,$correo,$acceso))
-    {
-      $exito= array("Men"=>1);
-    }
-    else
-    {
-      $exito= array("Men"=>0);
-    }
-      
+    if($this->validador->validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,1)){
+      if($this->users->actualizaUsuario($id,$usuario,$password,$nombre,$correo,$acceso))
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
+    }else
+      $exito= array("Men"=>2);
     echo json_encode($exito);
   }
 
@@ -121,6 +140,7 @@ class Usuarios extends CI_Controller {
 
     $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
+    $id= $this->validador->limpieza($id);
     $exito=null;
     if($this->users->eliminaUsuario($id))
     {

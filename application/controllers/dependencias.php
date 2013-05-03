@@ -5,6 +5,7 @@ class Dependencias extends CI_Controller {
   function __construct(){
     parent::__construct();
     $this->load->model('users');
+    $this->load->library('Validador');
   }
   
 
@@ -12,14 +13,23 @@ class Dependencias extends CI_Controller {
   {
     $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
+    $_id = $this->validador->limpieza($_id);
     $unidad = $this->security->xss_clean($this->input->post('unidad'));
+    $unidad = $this->validador->limpieza($unidad);
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
+    $nombre = $this->validador->limpieza($nombre);
     $calle = $this->security->xss_clean($this->input->post('calle'));
+    $calle = $this->validador->limpieza($calle);
     $colonia = $this->security->xss_clean($this->input->post('colonia'));
+    $colonia = $this->validador->limpieza($colonia);
     $numero = $this->security->xss_clean($this->input->post('numero'));
+    $numero = $this->validador->limpieza($numero);
     $cp = $this->security->xss_clean($this->input->post('cp'));
+    $cp = $this->validador->limpieza($cp);
     $telefono = $this->security->xss_clean($this->input->post('telefono'));
+    $telefono = $this->validador->limpieza($telefono);
     $pagina = $this->security->xss_clean($this->input->post('pagina'));
+    $pagina = $this->validador->limpieza($pagina);
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $this->load->model('dependencia');
@@ -51,13 +61,21 @@ class Dependencias extends CI_Controller {
     $this->verifica();
     $_id = "UV0".$this->getId();
     $unidad = $this->security->xss_clean($this->input->post('unidad'));
+    $unidad = $this->validador->limpieza($unidad);
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
+    $nombre = $this->validador->limpieza($nombre);
     $calle = $this->security->xss_clean($this->input->post('calle'));
+    $calle = $this->validador->limpieza($calle);
     $colonia = $this->security->xss_clean($this->input->post('colonia'));
+    $colonia = $this->validador->limpieza($colonia);
     $numero = $this->security->xss_clean($this->input->post('numero'));
+    $numero = $this->validador->limpieza($numero);
     $cp = $this->security->xss_clean($this->input->post('cp'));
+    $cp = $this->validador->limpieza($cp);
     $telefono = $this->security->xss_clean($this->input->post('telefono'));
+    $telefono = $this->validador->limpieza($telefono);
     $pagina = $this->security->xss_clean($this->input->post('pagina'));
+    $pagina = $this->validador->limpieza($pagina);
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $this->load->model('dependencia');

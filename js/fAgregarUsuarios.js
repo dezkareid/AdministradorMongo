@@ -31,7 +31,10 @@ function escribe(json){
     }
     else
     {
-        $('#msg').text('Hubo un problema al realizar la operación');
+        if(json.Men==0)
+            $('#msg').text('Hubo un problema al realizar la operación');
+        else
+            $('#msg').text('Datos no validos');
     }
 }
 
