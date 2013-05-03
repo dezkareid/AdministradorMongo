@@ -34,17 +34,22 @@ class Dependencias extends CI_Controller {
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $this->load->model('dependencia');
     $exito=null;
-    $resultado=$this->dependencia->actualizarDependencia($_id,$unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud);
-    
-    if($resultado)
+    if($this->validador->validaActualizarDependencia($unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud))
     {
-      $exito= array("Men"=>1);
+    
+      $resultado=$this->dependencia->actualizarDependencia($_id,$unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud);
+    
+      if($resultado)
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
     }
     else
-    {
-      $exito= array("Men"=>0);
-    }
-
+      $exito= array("Men"=>2);
     echo json_encode($exito);
   }
 
@@ -80,17 +85,20 @@ class Dependencias extends CI_Controller {
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $this->load->model('dependencia');
-    $resultado=$this->dependencia->agregar($_id,$unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud);
     $exito=null;
-    if($resultado)
+    if($this->validador->validaActualizarDependencia($unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud))
     {
-      $exito= array("Men"=>1);
-    }
-    else
-    {
-      $exito= array("Men"=>0);
-    }
-
+      $resultado=$this->dependencia->agregar($_id,$unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud);
+      if($resultado)
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
+    }else
+      $exito= array("Men"=>2);
     echo json_encode($exito);
   }
 

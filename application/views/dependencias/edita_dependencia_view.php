@@ -33,7 +33,7 @@
 				</div>
 				<div>
 					<label for="numero">Numero:</label>
-					<input alt="Numero de la dependencia" id="numero"  name="numero" placeholder="#12" type="number" />
+					<input alt="Numero de la dependencia" id="numero"  name="numero" placeholder="12" type="number" />
 				</div>
 				<div>
 					<label for="cp">Código postal:</label>
@@ -45,7 +45,7 @@
 				</div>
 				<div>
 					<label for="pagina">Página web:</label>
-					<input alt="Página de la dependencia" id="pagina" name="pagina" placeholder="www.uv.mx/dependencia" type="url"/>
+					<input alt="Página de la dependencia" id="pagina" name="pagina" placeholder="www.uv.mx/dependencia" type="text"/>
 				</div>
 				<div>
 					<label for="lat">Latitud:</label>

@@ -41,6 +41,16 @@ class Validador {
 
 	public function validaActualizarDependencia($unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud)
 	{
+		$a= strlen($unidad)<40&&$this->validaNombre($nombre)&&strlen($calle)<60&&strlen($colonia)<50&&$this->validaNumero($cp);
+		if(!empty($numero))
+			$a= $a&&$this->validaNumero($numero);
+		if(!empty($cp))
+			$a= $a&&$this->validaNumero($cp);
+		if(!empty($telefono))
+			$a= $a&&$this->validaTelefono($telefono);
+		if(!empty($pagina))
+			$a= $a&&$this->validaUrl("http://".$pagina);
+		return $a&&$this->validaCoordenada($latitud)&&$this->validaCoordenada($longitud);
 	}
 
 	public function validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,$accion)
@@ -64,7 +74,7 @@ class Validador {
 	public function validaNombre($cadena)
 	{
 
-		return preg_match('/^[a-z áéíóúñ]+$/i', $cadena)&&strlen($cadena)<80;
+		return preg_match('/^[a-z áéíóúñÁÉÍÓÚÑ]+$/i', $cadena)&&strlen($cadena)<80;
 	}
 
 	public function validaNombreUsuario($cadena)
@@ -105,6 +115,9 @@ class Validador {
 
 	}
 
+	public function validaTelefono($cadena){
+		return preg_match('/^[0-9]{5,10}$/', $cadena);	
+	}
 	public function validaUrl($cadena)
 	{
 		$b=strlen($cadena)>80;

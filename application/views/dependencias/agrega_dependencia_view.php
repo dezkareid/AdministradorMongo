@@ -32,7 +32,7 @@
 				</div>
 				<div>
 					<label for="pagina">Página web:</label>
-					<input alt="Aqui va tu contraseña" id="pagina" name="pagina" placeholder="www.uv.mx/dependencia" type="url"/>
+					<input alt="Aqui va tu contraseña" id="pagina" name="pagina" placeholder="www.uv.mx/dependencia" type="text"/>
 				</div>
 				<div>
 					<label for="lat">Latitud:</label>
