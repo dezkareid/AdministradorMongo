@@ -162,6 +162,7 @@ class Dependencias extends CI_Controller {
   {
     $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
+    $id= $this->validador->limpieza($id);
     $this->load->model('dependencia');
     $exito=null;
     if($this->dependencia->eliminaDependencia($id))

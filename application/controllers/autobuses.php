@@ -5,6 +5,7 @@ class Autobuses extends CI_Controller {
   function __construct(){
     parent::__construct();
     $this->load->model('users');
+    $this->load->library('Validador');
   }
  
 
@@ -14,12 +15,19 @@ class Autobuses extends CI_Controller {
   {
     $this->verifica();
     $_id = $this->security->xss_clean($this->input->post('id'));
+    $_id = $this->validador->limpieza($_id);
     $linea = $this->security->xss_clean($this->input->post('linea'));
+    $linea = $this->validador->limpieza($linea);
     $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
+    $descripcion = $this->validador->limpieza($descripcion);
     $trayecto = $this->security->xss_clean($this->input->post('trayecto'));
+    $trayecto = $this->validador->limpieza($trayecto);
     $primeraSalida = $this->security->xss_clean($this->input->post('primeraSalida'));
+    $primeraSalida = $this->validador->limpieza($primeraSalida);
     $ultimaSalida = $this->security->xss_clean($this->input->post('ultimaSalida'));
+    $ultimaSalida = $this->validador->limpieza($ultimaSalida);
     $tiempoEspera = $this->security->xss_clean($this->input->post('tiempoEspera'));
+    $tiempoEspera = $this->validador->limpieza($tiempoEspera);
     $this->load->model('autobus');
     $resultado=$this->autobus->actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
     if($resultado)

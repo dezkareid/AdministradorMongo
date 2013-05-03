@@ -35,8 +35,15 @@ class Validador {
 	
 	public function validaAcceso($cadena)
 	{
-		$b=$this->estaVacia($cadena)||strlen($cadena)>20;
+		$b=$this->estaVacia($cadena)||strlen($cadena)>40;
 		return !$b;		
+	}
+
+	public function validaActualizarAutobus($linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera)
+	{
+		$a= $this->validaAcceso($linea)&&$this->validaAcceso($descripcion)&&strlen($trayecto)<500;
+		$b= $this->validaHora($primeraSalida)&&$this->validaHora($ultimaSalida)&&$this->validaNumero($tiempoEspera);
+		return $a&&$b;
 	}
 
 	public function validaActualizarDependencia($unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud)
@@ -71,6 +78,17 @@ class Validador {
 		return filter_var($cadena, FILTER_VALIDATE_FLOAT);
 	}
 
+	public function validaHora($cadena)
+	{
+		$a=preg_match('/^[0-9]{2}:[0-9]{2}$/', $cadena);
+		if(!$a)
+			return false;
+		$hora= explode(":", $cadena);
+		if (((int)$hora[0])<24&&((int)$hora[1])<60) 
+			return true;
+		return false;
+		
+	}
 	public function validaNombre($cadena)
 	{
 
