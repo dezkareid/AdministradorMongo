@@ -5,7 +5,7 @@
 		<?
 			foreach ($autobuses as $key => $value) {
 				?>
-				<option value=<? echo $value["_id"]."-".$value["Descripcion"];?>> <? echo $value["Linea"]; ?> </option>
+				<option value=<? echo $value["_id"];?>> <? echo $value["Linea"]."-".$value["Descripcion"]; ?> </option>
 				<?
 			}
 		?>

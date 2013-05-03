@@ -56,13 +56,20 @@ function buscaAutobus (e) {
 }
 
 function escribe(json){
-	if(json.Men==1)
+    switch(json.Men)
     {
-       $('#msg').text('Autobus actualizado con éxito'); 
-    }
-    else
-    {
-        $('#msg').text('Hubo un problema al realizar la operación');
+        case 0: 
+            $('#msg').text('Hubo un problema al realizar la operación');
+            break;
+        case 1:
+            $('#msg').text('Autobus actualizado con éxito');
+            $('#listaAutobuses').val('');
+            limpiar();
+            break;
+        case 2:
+            $('#msg').text('Datos no validos');
+            break;
+
     }
 }
 

@@ -34,7 +34,7 @@
 	</div>
 	<div>
 		<label for="espera">Tiempo de espera:</label>
-		<input alt="Tiempo que tarda pasar cada camión" id="espera" name="espera" placeholder="30" type="number"/>
+		<input alt="Tiempo que tarda pasar cada camión" id="espera" min="1" name="espera" placeholder="30" type="number"/>
 	</div>
 	<button id="autobus-actualizar">Actualizar</button>
 	<br/>

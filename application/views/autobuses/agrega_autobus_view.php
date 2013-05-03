@@ -20,7 +20,7 @@
 	</div>
 	<div>
 		<label for="tiempoEspera">Tiempo de espera:</label>
-		<input alt="Tiempo que tarda pasar cada camión" id="tiempoEspera" name="tiempoEspera" placeholder="30" type="number"/>
+		<input alt="Tiempo que tarda pasar cada camión" id="espera" min="1" name="tiempoEspera" placeholder="30" type="number"/>
 	</div>
 	<button id="autobus-agregar">Agregar</button>
 	<br/>

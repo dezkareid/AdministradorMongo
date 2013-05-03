@@ -28,17 +28,21 @@ class Autobuses extends CI_Controller {
     $ultimaSalida = $this->validador->limpieza($ultimaSalida);
     $tiempoEspera = $this->security->xss_clean($this->input->post('tiempoEspera'));
     $tiempoEspera = $this->validador->limpieza($tiempoEspera);
-    $this->load->model('autobus');
-    $resultado=$this->autobus->actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
-    if($resultado)
+    if($this->validador->validaActualizarAutobus($linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera))
     {
-      $exito= array("Men"=>1);
+      $this->load->model('autobus');
+      $resultado=$this->autobus->actualizarAutobus($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
+      if($resultado)
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
     }
     else
-    {
-      $exito= array("Men"=>0);
-    }
-
+     $exito= array("Men"=>2); 
     echo json_encode($exito);
   }
 
@@ -56,22 +60,33 @@ class Autobuses extends CI_Controller {
     $this->verifica();
     $_id = "AU0".$this->getId();
     $linea = $this->security->xss_clean($this->input->post('linea'));
+    $linea = $this->validador->limpieza($linea);
     $descripcion = $this->security->xss_clean($this->input->post('descripcion'));
+    $descripcion = $this->validador->limpieza($descripcion);
     $trayecto = $this->security->xss_clean($this->input->post('trayecto'));
+    $trayecto = $this->validador->limpieza($trayecto);
     $primeraSalida = $this->security->xss_clean($this->input->post('primeraSalida'));
+    $primeraSalida = $this->validador->limpieza($primeraSalida);
     $ultimaSalida = $this->security->xss_clean($this->input->post('ultimaSalida'));
+    $ultimaSalida = $this->validador->limpieza($ultimaSalida);
     $tiempoEspera = $this->security->xss_clean($this->input->post('tiempoEspera'));
-    $this->load->model('autobus');
-    $resultado=$this->autobus->agregar($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
-    $exito=null;
-    if($resultado)
+    $tiempoEspera = $this->validador->limpieza($tiempoEspera);
+    if($this->validador->validaActualizarAutobus($linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera))
     {
-      $exito= array("Men"=>1);
+      $this->load->model('autobus');
+      $resultado=$this->autobus->agregar($_id,$linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera);
+      $exito=null;
+      if($resultado)
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
     }
     else
-    {
-      $exito= array("Men"=>0);
-    }
+      $exito= array("Men"=>2, "id"=>$tiempoEspera);
 
     echo json_encode($exito);
   }
@@ -123,6 +138,7 @@ class Autobuses extends CI_Controller {
   {
     $this->verifica();
     $id = $this->security->xss_clean($this->input->post('id'));
+    $id = $this->validador->limpieza($id);
     $this->load->model('autobus');
     $exito=null;
     if($this->autobus->eliminaAutobus($id))

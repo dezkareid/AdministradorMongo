@@ -25,14 +25,19 @@ function agregarAutobus () {
 
 
 function escribe(json){
-	if(json.Men==1)
+    switch(json.Men)
     {
-       $('#msg').text('Autobus agregado con éxito'); 
-       limpiar();
-    }
-    else
-    {
-        $('#msg').text('Hubo un problema al realizar la operación');
+        case 0: 
+            $('#msg').text('Hubo un problema al realizar la operación');
+            break;
+        case 1:
+            $('#msg').text('Autobus agregado con éxito'); 
+            limpiar();
+            break;
+        case 2:
+            $('#msg').text('Datos no validos');
+            break;
+
     }
 }
 
