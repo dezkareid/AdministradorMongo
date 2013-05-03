@@ -39,19 +39,18 @@ class Validador {
 		return !$b;		
 	}
 
-	public function validaActualizarDependencia($value='')
+	public function validaActualizarDependencia($unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud)
 	{
-		# code...
 	}
+
 	public function validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,$accion)
 	{
 		$a= $this->validaNombreUsuario($usuario)&&$this->validaNombre($nombre);
 		$b= $this->validaEmail($correo)&&$this->validaAcceso($acceso);
 		if($accion==1)
-			$c= strlen($password)>40;
+			$c= strlen($password)<40;
 		else
-			$c= $this->estaVacia($password)||strlen($password)>40; 
-		$c = !$c;
+			$c= $this->validaPassword($password); 
 		if($a&&$b&&$c)
 		return true;
 		return false;
@@ -65,7 +64,7 @@ class Validador {
 	public function validaNombre($cadena)
 	{
 
-		return preg_match('/^[a-z áéíóúñ]+$/i', $cadena);
+		return preg_match('/^[a-z áéíóúñ]+$/i', $cadena)&&strlen($cadena)<80;
 	}
 
 	public function validaNombreUsuario($cadena)
@@ -79,18 +78,21 @@ class Validador {
 	{
 		$b=$this->estaVacia($cadena)||strlen($cadena)>80;
 
-		return preg_match('/^[a-z\d_]{4,28}$/i', $cadena)||$b;
+		return preg_match('/^[a-z\d_]{4,28}$/i', $cadena)||!$b;
 	}
 
 	public function validaEmail($cadena)
 	{ 
-		return filter_var($cadena, FILTER_VALIDATE_EMAIL);
+		$b=strlen($cadena)>80;
+
+		return filter_var($cadena, FILTER_VALIDATE_EMAIL)&&!$b;
 	}
 		
 
 	public function validaNumero($cadena)
 	{
-		return filter_var($nume, FILTER_VALIDATE_INT);
+		$b=strlen($cadena)>80;
+		return filter_var($cadena, FILTER_VALIDATE_INT)&&!$b;
 	}
 
 	public function validaFlotante($cadena)
@@ -98,8 +100,15 @@ class Validador {
 		$puntos=substr_count($cadena, '.');
 		if($puntos==0||$puntos>1)
 			return false;
-		return filter_var($nume, FILTER_VALIDATE_FLOAT);
+		$b=strlen($cadena)>80;
+		return filter_var($cadena, FILTER_VALIDATE_FLOAT)&&!$b;
 
+	}
+
+	public function validaUrl($cadena)
+	{
+		$b=strlen($cadena)>80;
+		return filter_var($cadena, FILTER_VALIDATE_URL)&&!$b;
 	}
 
 }

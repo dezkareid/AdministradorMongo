@@ -33,8 +33,9 @@ class Dependencias extends CI_Controller {
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
     $this->load->model('dependencia');
-    $resultado=$this->dependencia->actualizarDependencia($_id,$unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud);
     $exito=null;
+    $resultado=$this->dependencia->actualizarDependencia($_id,$unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud);
+    
     if($resultado)
     {
       $exito= array("Men"=>1);

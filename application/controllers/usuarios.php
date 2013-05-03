@@ -63,14 +63,18 @@ class Usuarios extends CI_Controller {
     $exito=null;
     if($this->validador->validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,0)){
       $data = array('Usuario' => $usuario,'Password' => sha1($password), 'Nombre'=> $nombre, 'Correo'=> $correo, 'Acceso'=> $acceso);
-      if($this->users->agrega($data))
-      {
-        $exito= array("Men"=>1);
-      }
+      $registros=$this->users->getNumUsuarios($usuario);
+      if(empty($registros))
+        if($this->users->agrega($data))
+        {
+          $exito= array("Men"=>1);
+        }
+        else
+        {
+          $exito= array("Men"=>0);
+        }
       else
-      {
-        $exito= array("Men"=>0);
-      }
+        $exito= array("Men"=>3);
     }
     else
      $exito= array("Men"=>2); 
@@ -108,14 +112,23 @@ class Usuarios extends CI_Controller {
     $acceso = $this->validador->limpieza($acceso);
     $exito=null;
     if($this->validador->validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,1)){
-      if($this->users->actualizaUsuario($id,$usuario,$password,$nombre,$correo,$acceso))
-      {
-        $exito= array("Men"=>1);
+      $registros=$this->users->getNumUsuarios($usuario);
+      if(sizeof($registros)==1){
+        $mi_Id=(string) $registros[0]['_id'];
+        if(strcmp($mi_Id,$id)==0)
+          if($this->users->actualizaUsuario($id,$usuario,$password,$nombre,$correo,$acceso))
+          {
+            $exito= array("Men"=>1);
+          }
+          else
+          {
+            $exito= array("Men"=>0);
+          }
+        else
+          $exito= array("Men"=>3);
       }
       else
-      {
-        $exito= array("Men"=>0);
-      }
+        $exito= array("Men"=>3);
     }else
       $exito= array("Men"=>2);
     echo json_encode($exito);

@@ -24,19 +24,24 @@ function guarda(){
 }
 
 function escribe(json){
-	if(json.Men==1)
+    switch(json.Men)
     {
-       $('#msg').text('Usuario agregado con éxito'); 
-       limpiar();
-    }
-    else
-    {
-        if(json.Men==0)
+        case 0: 
             $('#msg').text('Hubo un problema al realizar la operación');
-        else
+            break;
+        case 1:
+            $('#msg').text('Usuario agregado con éxito'); 
+            limpiar();
+            break;
+        case 2:
             $('#msg').text('Datos no validos');
+            break;
+        case 3:
+            $('#msg').text('Ya existe un usuario con ese nombre de usuario');
+            break;
     }
 }
+	
 
 function limpiar () {
     $('input').val("");

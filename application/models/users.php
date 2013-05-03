@@ -51,6 +51,11 @@ Class Users extends CI_Model{
     return $privilegios;
   }
 
+    public function getNumUsuarios($username)
+  {
+    $datos=$this->mongo_db->where(array('Usuario'=>$username))->get('Usuarios');
+    return $datos;
+  }
 
   public function getUsuarios()
   {
