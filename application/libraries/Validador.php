@@ -60,6 +60,11 @@ class Validador {
 		return $a&&$this->validaCoordenada($latitud)&&$this->validaCoordenada($longitud);
 	}
 
+	public function validaActualizarParada($indice, $tiempo, $latitud,$longitud)
+	{
+		return $this->validaNumero($indice)&&$this->validaFlotante($tiempo)&&$this->validaCoordenada($latitud)&&$this->validaCoordenada($longitud);
+	}
+
 	public function validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,$accion)
 	{
 		$a= $this->validaNombreUsuario($usuario)&&$this->validaNombre($nombre);
@@ -125,9 +130,9 @@ class Validador {
 
 	public function validaFlotante($cadena)
 	{
-		$puntos=substr_count($cadena, '.');
+		/*$puntos=substr_count($cadena, '.');
 		if($puntos==0||$puntos>1)
-			return false;
+			return false;*/
 		$b=strlen($cadena)>80;
 		return filter_var($cadena, FILTER_VALIDATE_FLOAT)&&!$b;
 

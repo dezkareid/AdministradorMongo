@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<label for="indice">Indice :</label> 
-					<input alt="Indice de visita del autobus a esa paradda" autofocus id="indice" name="indice" placeholder="1" type="number"/>
+					<input alt="Indice de visita del autobus a esa paradda" autofocus id="indice" min="1" name="indice" placeholder="1" type="number"/>
 				</div>
 				<div>
 					<label for="tiempo">Tiempo :</label> 

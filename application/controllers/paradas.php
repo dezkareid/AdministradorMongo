@@ -5,6 +5,7 @@ class Paradas extends CI_Controller {
   function __construct(){
     parent::__construct();
     $this->load->model('users');
+    $this->load->library('Validador');
   }
  
   function agregaMenus(){
@@ -35,24 +36,43 @@ class Paradas extends CI_Controller {
     if ($result==0)
       redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
+    $this->validador->limpieza($_id);
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
-    $indice= (int) $this->security->xss_clean($this->input->post('indice'));
-    $tiempo= (float) $this->security->xss_clean($this->input->post('tiempo'));
+    $indice= $this->security->xss_clean($this->input->post('indice'));
+    $indice= $this->validador->limpieza($indice);
+    $tiempo= $this->security->xss_clean($this->input->post('tiempo'));
+    $tiempo= $this->validador->limpieza($tiempo);
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
-    $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
-    $resultado[0]['Paradas'][$indice-1]=$parada;
-    $actulizo=$this->parada->actualizarParadas($_id,$resultado[0]['Paradas']);
-    $exito=null;
-    if($actulizo)
+    $v=(int) $indice;
+    if($v==0)
+      $indice="1";
+    if($this->validador->validaActualizarParada($indice, $tiempo, $latitud,$longitud))
     {
-      $exito= array("Men"=>1);
+      $indice= (int) $indice;
+      $tiempo= (float) $tiempo;
+      $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
+
+      if(($indice-1)>sizeof($resultado[0]['Paradas']))
+        $indice=sizeof($resultado[0]['Paradas']);
+      if($indice<1)
+        $indice=1;
+
+      $resultado[0]['Paradas'][$indice-1]=$parada;
+      $actulizo=$this->parada->actualizarParadas($_id,$resultado[0]['Paradas']);
+      $exito=null;
+      if($actulizo)
+      {
+        $exito= array("Men"=>1);
+      }
+      else
+      {
+        $exito= array("Men"=>0);
+      }
     }
     else
-    {
-      $exito= array("Men"=>0);
-    }
+      $exito= array("Men"=>2);
 
     echo json_encode($exito);
 
@@ -64,39 +84,56 @@ class Paradas extends CI_Controller {
     if ($result==0)
       redirect('login', 'refresh');
     $_id = $this->security->xss_clean($this->input->post('id'));
+    $_id = $this->validador->limpieza($_id);
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
     //unset($resultado[0]['Paradas'][1]);
-    $indice= (int) $this->security->xss_clean($this->input->post('indice'));
-    $tiempo= (float) $this->security->xss_clean($this->input->post('tiempo'));
+    $indice= $this->security->xss_clean($this->input->post('indice'));
+    $indice= $this->validador->limpieza($indice);
+    $tiempo= $this->security->xss_clean($this->input->post('tiempo'));
+    $tiempo= $this->validador->limpieza($tiempo);
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
-    $paradas=array();
-    $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
+    $v=(int) $indice;
+    if($v==0)
+      $indice="1";
+    if($this->validador->validaActualizarParada($indice, $tiempo, $latitud,$longitud))
+    {
+      
+      $tiempo= (float) $tiempo;
+      $paradas=array();
+      $parada= array('Latitud'=>$latitud,'Longitud'=>$longitud,'Tiempo'=>$tiempo);
     //$resultado[0]['Paradas']=array_values($resultado[0]['Paradas']);
-    $final=sizeof($resultado[0]['Paradas']);
-    for ($i=0;$i<$indice-1;$i++) 
-    {
-      array_push($paradas, $resultado[0]['Paradas'][$i]);
-    }
+      if(($indice-1)>sizeof($resultado[0]['Paradas']))
+        $indice=sizeof($resultado[0]['Paradas']);
+      if($indice<1)
+        $indice=1;
+      $final=sizeof($resultado[0]['Paradas']);
+      for ($i=0;$i<$indice-1;$i++) 
+      {
+        array_push($paradas, $resultado[0]['Paradas'][$i]);
+      }
 
-    array_push($paradas, $parada);
+      array_push($paradas, $parada);
 
-    for ($i=$indice-1;$i<$final;$i++) 
-    {
-      array_push($paradas, $resultado[0]['Paradas'][$i]);
+      for ($i=$indice-1;$i<$final;$i++) 
+      {
+        array_push($paradas, $resultado[0]['Paradas'][$i]);
+      }
+     
+      $actulizo=$this->parada->actualizarParadas($_id,$paradas);
+      $exito=null;
+      if($actulizo)
+      {
+        $exito= array("Men"=>1,"p"=>$parada, "in"=>$indice);
+      }
+      else
+      {
+        $exito= array("Men"=>0,"p"=>$parada, "in"=>$indice);
+      }
     }
-   
-    $actulizo=$this->parada->actualizarParadas($_id,$paradas);
-    $exito=null;
-    if($actulizo)
-    {
-      $exito= array("Men"=>1);
-    }
-    else
-    {
-      $exito= array("Men"=>0);
-    }
+   else
+      $exito= array("Men"=>2,"p"=>$parada, "in"=>$indice);
 
     echo json_encode($exito);
   }
@@ -134,6 +171,10 @@ class Paradas extends CI_Controller {
       $this->load->model('parada');
       $resultado=$this->parada->getParadas($_id);
       $indice= (int) $this->security->xss_clean($this->input->post('indice'));
+      if(($indice-1)>sizeof($resultado[0]['Paradas']))
+        $indice=sizeof($resultado[0]['Paradas']);
+      if($indice<1)
+        $indice=1;
       unset($resultado[0]['Paradas'][$indice-1]);
       $resultado[0]['Paradas']=array_values($resultado[0]['Paradas']);
       $actulizo=$this->parada->actualizarParadas($_id,$resultado[0]['Paradas']);

@@ -86,15 +86,21 @@ function getParadas (e) {
 }
 
 function escribe(json){
-	if(json.Men==1)
+    switch(json.Men)
     {
-       $('#msg').text('Parada actualizada con éxito'); 
-       limpiar();
+        case 0: 
+            $('#msg').text('Hubo un problema al realizar la operación');
+            break;
+        case 1:
+            $('#msg').text('Parada actualizada con éxito'); 
+            limpiar();
+            break;
+        case 2:
+            $('#msg').text('Datos no validos');
+            break;
+
     }
-    else
-    {
-        $('#msg').text('Hubo un problema al realizar la operación');
-    }
+
 }
 
 function limpiar () {
