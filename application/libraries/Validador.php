@@ -14,9 +14,9 @@ class Validador {
 
 	public function eliminaCaracteresEspeciales($cadena)
 	{
-		$cadena=preg_replace("/!|;|-|{|}|\t|\n|\r/","",$cadena);
-		filter_var($cadena, FILTER_SANITIZE_STRING,FILTER_SANITIZE_STRIPPED);
-		return $cadena;
+		$cadena=preg_replace("/!|;|{|}|\t|\n|\r/","",$cadena);
+		return filter_var($cadena, FILTER_SANITIZE_STRING,FILTER_SANITIZE_STRIPPED);
+		
 	}
 
 	public function eliminaEspacios($cadena)
@@ -48,7 +48,7 @@ class Validador {
 
 	public function validaActualizarDependencia($unidad, $nombre, $calle, $colonia, $cp,$numero,$pagina,$telefono,$latitud, $longitud)
 	{
-		$a= strlen($unidad)<40&&$this->validaNombre($nombre)&&strlen($calle)<60&&strlen($colonia)<50&&$this->validaNumero($cp);
+		$a= strlen($unidad)<100&&strlen($nombre)<100&&strlen($calle)<100&&strlen($colonia)<100&&!empty($nombre);
 		if(!empty($numero))
 			$a= $a&&$this->validaNumero($numero);
 		if(!empty($cp))
