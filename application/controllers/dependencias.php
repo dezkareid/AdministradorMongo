@@ -19,9 +19,7 @@ class Dependencias extends CI_Controller {
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
     $nombre = $this->validador->limpieza($nombre);
     $calle = $this->security->xss_clean($this->input->post('calle'));
-    $calle = $this->validador->limpieza($calle);
     $colonia = $this->security->xss_clean($this->input->post('colonia'));
-    $colonia = $this->validador->limpieza($colonia);
     $numero = $this->security->xss_clean($this->input->post('numero'));
     $numero = $this->validador->limpieza($numero);
     $cp = $this->security->xss_clean($this->input->post('cp'));
