@@ -174,6 +174,56 @@ class Autobuses extends CI_Controller {
     ++$numero;
     return $numero;
   }
+
+
+  function subir_imagen()
+  {
+    $this->verifica();
+    $this->agregaMenus();
+    $this->load->view('menus/menu_acciones_view');
+    $this->load->view('menus/menu_end_view');
+    $this->load->model('autobus');
+    $this->load->helper('form');
+    $autobuses=$this->autobus->getautobuses();
+    $data= array('autobuses'=>$autobuses,'error'=>'');
+    $this->load->view('autobuses/subir_imagen_view',$data);
+    $this->load->view('footer');
+  }
+
+  function guardar_imagen()
+  {
+    
+    $this->verifica();
+    $this->agregaMenus();
+    $this->load->view('menus/menu_acciones_view');
+    $this->load->view('menus/menu_end_view');
+    $autobus = $this->security->xss_clean($this->input->post('autobus'));
+    $config['upload_path']   = './img/Autobuses/';
+    $config['allowed_types'] = 'jpg';
+    $config['max_width'] = '600';
+    $config['max_height'] = '600';
+    $config['overwrite'] = TRUE;
+    $config['file_name'] = $autobus;
+    $this->load->library('upload',$config);
+    if (!$this->upload->do_upload('imagen')) 
+    {
+      $autobuses=$this->autobus->getautobuses();
+      $data= array('autobuses'=>$autobuses);
+      $this->load->helper('form');
+      $data= array('autobuses'=>$autobuses,'error'=>$this->upload->display_errors());
+      $this->load->view('autobuses/subir_imagen_view',$data);
+
+    }    
+    else
+    {
+      $archivo = $this->upload->data('imagen');
+      $data = array('imagen' => base_url()."/img/Autobuses/".$archivo['file_name'] ); 
+      $this->load->view('autobuses/imagen_subida_view',$data);
+    }
+    $this->load->view('footer');
+  }
+
+
   
 }
 
