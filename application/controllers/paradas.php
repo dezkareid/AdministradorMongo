@@ -45,8 +45,8 @@ class Paradas extends CI_Controller {
     $tiempo= $this->validador->limpieza($tiempo);
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
-    $v=(int) $indice;
-    if($v==0)
+    //$v=(int) $indice;
+    if($indice=="0")
       $indice="1";
     if($this->validador->validaActualizarParada($indice, $tiempo, $latitud,$longitud))
     {
@@ -83,7 +83,7 @@ class Paradas extends CI_Controller {
     $result=$this->users->logueado();
     if ($result==0)
       redirect('login', 'refresh');
-    $_id = $this->security->xss_clean($this->input->post('id'));
+   $_id = $this->security->xss_clean($this->input->post('id'));
     $_id = $this->validador->limpieza($_id);
     $this->load->model('parada');
     $resultado=$this->parada->getParadas($_id);
@@ -91,11 +91,10 @@ class Paradas extends CI_Controller {
     $indice= $this->security->xss_clean($this->input->post('indice'));
     $indice= $this->validador->limpieza($indice);
     $tiempo= $this->security->xss_clean($this->input->post('tiempo'));
-    $tiempo= $this->validador->limpieza($tiempo);
+    //$tiempo= $this->validador->limpieza($tiempo);
     $latitud = $this->security->xss_clean($this->input->post('latitud'));
     $longitud = $this->security->xss_clean($this->input->post('longitud'));
-    $v=(int) $indice;
-    if($v==0)
+    if($indice=="0")
       $indice="1";
     if($this->validador->validaActualizarParada($indice, $tiempo, $latitud,$longitud))
     {
@@ -125,15 +124,15 @@ class Paradas extends CI_Controller {
       $exito=null;
       if($actulizo)
       {
-        $exito= array("Men"=>1,"p"=>$parada, "in"=>$indice);
+        $exito= array("Men"=>1);
       }
       else
       {
-        $exito= array("Men"=>0,"p"=>$parada, "in"=>$indice);
+        $exito= array("Men"=>0);
       }
     }
    else
-      $exito= array("Men"=>2,"p"=>$parada, "in"=>$indice);
+      $exito= array("Men"=>2);
 
     echo json_encode($exito);
   }

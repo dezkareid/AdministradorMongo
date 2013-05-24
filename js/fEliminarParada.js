@@ -112,6 +112,7 @@ function escribe(json){
        limpiar();
        marcadores[ultimoMarker].setMap(null);
        marcadores.splice(ultimoMarker,1);
+       ultimoMarker=null;
     }
     else
     {

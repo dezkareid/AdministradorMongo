@@ -41,7 +41,7 @@ class Validador {
 
 	public function validaActualizarAutobus($linea, $descripcion, $trayecto, $primeraSalida, $ultimaSalida, $tiempoEspera)
 	{
-		$a= $this->validaAcceso($linea)&&$this->validaAcceso($descripcion)&&strlen($trayecto)<500;
+		$a= $this->validaAcceso($linea)&&$this->validaAcceso($descripcion)&&strlen($trayecto)<1000;
 		$b= $this->validaHora($primeraSalida)&&$this->validaHora($ultimaSalida)&&$this->validaNumero($tiempoEspera);
 		return $a&&$b;
 	}
@@ -62,7 +62,7 @@ class Validador {
 
 	public function validaActualizarParada($indice, $tiempo, $latitud,$longitud)
 	{
-		return $this->validaNumero($indice)&&$this->validaFlotante($tiempo)&&$this->validaCoordenada($latitud)&&$this->validaCoordenada($longitud);
+		return $this->validaNumero($indice)&&($this->validaFlotante($tiempo)>0)&&$this->validaCoordenada($latitud)&&$this->validaCoordenada($longitud);
 	}
 
 	public function validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,$accion)

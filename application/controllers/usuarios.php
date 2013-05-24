@@ -53,7 +53,6 @@ class Usuarios extends CI_Controller {
     $usuario = $this->security->xss_clean($this->input->post('usuario'));
     $usuario = $this->validador->limpieza($usuario);
     $password = $this->security->xss_clean($this->input->post('password'));
-    $password = $this->validador->limpieza($password);
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
     $nombre = $this->validador->limpieza($nombre);
     $correo = $this->security->xss_clean($this->input->post('correo'));
@@ -103,7 +102,6 @@ class Usuarios extends CI_Controller {
     $usuario = $this->security->xss_clean($this->input->post('usuario'));
     $usuario = $this->validador->limpieza($usuario);
     $password = $this->security->xss_clean($this->input->post('password'));
-    $password = $this->validador->limpieza($password);
     $nombre = $this->security->xss_clean($this->input->post('nombre'));
     $nombre = $this->validador->limpieza($nombre);
     $correo = $this->security->xss_clean($this->input->post('correo'));
@@ -113,9 +111,14 @@ class Usuarios extends CI_Controller {
     $exito=null;
     if($this->validador->validaActualizarUsuario($usuario,$password,$nombre,$correo,$acceso,1)){
       $registros=$this->users->getNumUsuarios($usuario);
-      if(sizeof($registros)==1){
-        $mi_Id=(string) $registros[0]['_id'];
-        if(strcmp($mi_Id,$id)==0)
+      if(sizeof($registros)==0||sizeof($registros)==1){
+        $actualizar=true;
+        if(isset($registros[0]['_id']))
+        {
+          $mi_Id=(string) $registros[0]['_id'];
+          $actualizar=strcmp($mi_Id,$id)==0;
+        }
+        if ($actualizar)
           if($this->users->actualizaUsuario($id,$usuario,$password,$nombre,$correo,$acceso))
           {
             $exito= array("Men"=>1);
