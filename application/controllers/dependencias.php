@@ -205,7 +205,7 @@ class Dependencias extends CI_Controller {
     $this->load->view('menus/menu_acciones_view');
     $this->load->view('menus/menu_end_view');
     $dependencia = $this->security->xss_clean($this->input->post('dependencia'));
-    $config['upload_path']   = './img/';
+    $config['upload_path']   = './img/Dependencias/';
     $config['allowed_types'] = 'jpg';
     $config['max_width'] = '600';
     $config['max_height'] = '600';
@@ -224,7 +224,7 @@ class Dependencias extends CI_Controller {
     else
     {
       $archivo = $this->upload->data('imagen');
-      $data = array('imagen' => base_url()."/img/".$archivo['file_name'] ); 
+      $data = array('imagen' => base_url()."/img/Dependencias/".$archivo['file_name'] ); 
       $this->load->view('dependencias/imagen_subida_view',$data);
     }
     $this->load->view('footerDependencias');

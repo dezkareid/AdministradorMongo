@@ -12,7 +12,7 @@
 			?>
 	</select>
 	<br />
-	<input type="file" name="imagen"/>
+	<input required accept="image/jpeg" type="file" name="imagen"/>
 	<br />
 	<input type="submit" value="Subir Imagen" />
 </form>

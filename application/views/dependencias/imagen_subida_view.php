@@ -1,4 +1,5 @@
 
 <h1>Imagen subida de manera satisfactoria</h1>
 <img src="<? echo $imagen ?>" />
-<a href="<?=base_url('dependencias/subir_imagen');?>">Subir mas imagenes</a>
+<br/>
+<a class='btn btn-large btn-primary' href="<?=base_url('dependencias/subir_imagen');?>">Subir mas imagenes</a>
