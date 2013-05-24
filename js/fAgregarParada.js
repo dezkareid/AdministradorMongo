@@ -53,9 +53,9 @@ function escribe(json){
         case 1:
             $('#msg').text('Parada agregado con éxito'); 
             marker.setIcon(null);
-            marcadores.push(marker);
-            marker=null;
             var numero=parseInt($('#indice').val())+1;
+            renombrarMarcadores(numero-2);
+            marker=null;
             $('#indice').val(numero);
             break;
         case 2:
@@ -66,3 +66,23 @@ function escribe(json){
 
 }
 
+function renombrarMarcadores (numero) {
+    var array=[];
+
+    for(var i=0;i<numero;i++)
+    {
+        array.push(marcadores[i]);
+    }
+
+    array.push(marker);
+
+    for(var i=numero;i<marcadores.length;i++){
+        array.push(marcadores[i]);
+    }
+
+    marcadores= array;
+    for (marcador in marcadores)
+    {
+        marcadores[marcador].setTitle('Parada '+(parseInt(marcador)+1));
+    }
+}
