@@ -4,6 +4,7 @@
                 <li><a href="<?=base_url('dependencias/agregar');?>">Agregar</a></li>
                 <li><a href="<?=base_url('dependencias/editar');?>">Actualizar</a></li>
                 <li><a href="<?=base_url('dependencias/eliminar');?>">Eliminar</a></li>
+                <li><a href="<?=base_url('dependencias/subir_imagen');?>">Subir Imagen</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -12,6 +13,7 @@
                 <li><a href="<?=base_url('autobuses/agregar');?>">Agregar</a></li>
                 <li><a href="<?=base_url('autobuses/editar');?>">Actualizar</a></li>
                 <li><a href="<?=base_url('autobuses/eliminar');?>">Eliminar</a></li>
+                <li><a href="<?=base_url('autobuses/subir');?>">Subir Imagen</a></li>
               </ul>
             </li>
             <li class="dropdown">

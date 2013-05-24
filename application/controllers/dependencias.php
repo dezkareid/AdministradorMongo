@@ -183,6 +183,53 @@ class Dependencias extends CI_Controller {
   }
 
 
+  function subir_imagen()
+  {
+    $this->verifica();
+    $this->agregaMenus();
+    $this->load->view('menus/menu_acciones_view');
+    $this->load->view('menus/menu_end_view');
+    $this->load->model('dependencia');
+    $this->load->helper('form');
+    $dependencias=$this->dependencia->getDependencias();
+    $data= array('dependencias'=>$dependencias,'error'=>'');
+    $this->load->view('dependencias/subir_imagen_view',$data);
+    $this->load->view('footerDependencias');
+  }
+
+  function guardar_imagen()
+  {
+    
+    $this->verifica();
+    $this->agregaMenus();
+    $this->load->view('menus/menu_acciones_view');
+    $this->load->view('menus/menu_end_view');
+    $dependencia = $this->security->xss_clean($this->input->post('dependencia'));
+    $config['upload_path']   = './img/';
+    $config['allowed_types'] = 'jpg';
+    $config['max_width'] = '600';
+    $config['max_height'] = '600';
+    $config['overwrite'] = TRUE;
+    $config['file_name'] = $dependencia;
+    $this->load->library('upload',$config);
+    if (!$this->upload->do_upload('imagen')) 
+    {
+      $this->load->model('dependencia');
+      $this->load->helper('form');
+      $dependencias=$this->dependencia->getDependencias();
+      $data= array('dependencias'=>$dependencias,'error'=>$this->upload->display_errors());
+      $this->load->view('dependencias/subir_imagen_view',$data);
+
+    }    
+    else
+    {
+      $archivo = $this->upload->data('imagen');
+      $data = array('imagen' => base_url()."/img/".$archivo['file_name'] ); 
+      $this->load->view('dependencias/imagen_subida_view',$data);
+    }
+    $this->load->view('footerDependencias');
+  }
+
 }
 
  
