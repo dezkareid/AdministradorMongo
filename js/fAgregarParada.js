@@ -66,21 +66,9 @@ function escribe(json){
 
 }
 
-function renombrarMarcadores (numero) {
-    var array=[];
-
-    for(var i=0;i<numero;i++)
-    {
-        array.push(marcadores[i]);
-    }
-
-    array.push(marker);
-
-    for(var i=numero;i<marcadores.length;i++){
-        array.push(marcadores[i]);
-    }
-
-    marcadores= array;
+function renombrarMarcadores (numero) 
+{
+    marcadores.splice(numero,0,marker);
     for (marcador in marcadores)
     {
         marcadores[marcador].setTitle('Parada '+(parseInt(marcador)+1));

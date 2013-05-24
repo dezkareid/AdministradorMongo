@@ -112,7 +112,9 @@ function escribe(json){
        limpiar();
        marcadores[ultimoMarker].setMap(null);
        marcadores.splice(ultimoMarker,1);
+        renombrarMarcadores();
        ultimoMarker=null;
+
     }
     else
     {
@@ -136,5 +138,18 @@ function marcarParada () {
         marcadores[ultimoMarker].setIcon(null);
     ultimoMarker=indice-1;
     marcadores[ultimoMarker].setIcon(imagen);
+
+}
+
+function renombrarMarcadores () {
+    $('#indicePEliminar').empty();
+    $("<option value='"+"'>Selecciona un indice</option>").appendTo("#indicePEliminar");            
+        for(var i=0;i<marcadores.length;i++)
+        {
+            $("<option value='"+(i+1)+"'>"+(i+1)+"</option>").appendTo("#indicePEliminar");
+        }
+    for (marcador in marcadores){
+          marcadores[marcador].setTitle('Parada '+(parseInt(marcador)+1));
+    }
 
 }
